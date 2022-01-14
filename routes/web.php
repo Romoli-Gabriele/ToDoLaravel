@@ -1,12 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\Task;
-use App\Http\Controllers\TaskController;
-use App\Http\Controllers\UserController;
-use App\Models\User;
-use GuzzleHttp\Psr7\Request;
-use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,19 +13,13 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', fn () => view('index',['tasks'=> Task::all()]))->name('home');
+Route::get('/', function () {
+    return view('index');
+});
 
-Route::get('add', fn () => view('add-task'))->middleware('auth');
-Route::post('add', [TaskController::class, 'add'])->middleware('auth');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
-Route::get('done/{task:slug}', [TaskController::class, 'done']);//put update
+require __DIR__.'/auth.php';
 
-Route::get('delete', [TaskController::class, 'delete']);//delete destroy
-
-Route::get('login', fn() =>view('login'))->name('login')->middleware('guest');
-Route::post('login',[UserController::class,'authenticate'])->middleware('guest');
-
-Route::get('sing-in', [UserController::class, 'create'])->middleware('guest');
-Route::post('sing-in',[UserController::class, 'store'])->middleware('guest');
-
-route::get('logout', [UserController::class, 'logout'])->middleware('auth');

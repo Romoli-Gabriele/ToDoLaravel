@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
-    public static function add()
+    public static function add()//
     {
         Task::addNew($_POST['descrizione'], false, Auth::id());
         return view('index',
@@ -17,7 +17,7 @@ class TaskController extends Controller
             'tasks' => Task::all()
         ]);
     }
-    public static function done(Task $task)
+    public static function done(Task $task)//update
     {
 
         DB::update("update tasks set terminata = 1 where id = $task->id");

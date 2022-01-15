@@ -13,7 +13,9 @@
             
             @auth
                     <form method="GET" action="/">
-                        <a href="/delete"><b>Delete Task</b></a>
+                        @if(auth()->user()->id == auth()->user()->team->team_leader)
+                        <a href="admin/delete"><b>Delete Task</b></a>
+                        @endif
                         <a href="/add"><b>Add Task</b></a>
                         <a href="/logout"><b>Logout</b></a>
                         @if (request('team'))

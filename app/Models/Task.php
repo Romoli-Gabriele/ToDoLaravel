@@ -12,7 +12,8 @@ class Task extends Model
         \App\Models\Task::factory([
             'descrizione'=>$descrizione,
             'terminata'=>$terminata,
-            'user_id'=>$user_id
+            'user_id'=>$user_id,
+            'slug'=> str_replace(' ','-',$descrizione)
         ])->create();
     }
     public $guarded = ['id'];

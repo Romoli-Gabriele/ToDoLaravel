@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Task;
@@ -35,6 +36,7 @@ class TaskController extends Controller
     }
     public static function edit(Task $task)
     {
+        
         return view(
             'tasks.edit',
             [
@@ -42,18 +44,22 @@ class TaskController extends Controller
             ]
         );
     }
-    public static function update(Task $task)
+    public static function update(Request $request, Task $task)
     {
+        if ($request->user()->cannot('update', $task)) {
+            abort(403);
+        }
+
         if (isset($_POST['terminata'])) {
             $task->terminata = true;
         } else {
             $task->terminata = false;
         }
-        $task->update([
-            'descrizione' => $_POST['descrizione']
-        ]);
-        $task->save();
-        return redirect('/');
+            $task->update([
+                'descrizione' => $_POST['descrizione']
+            ]);
+            $task->save();
+            return redirect('/');
     }
 
     public static function delete()

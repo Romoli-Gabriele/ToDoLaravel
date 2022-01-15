@@ -27,8 +27,8 @@ Route::post('add', [TaskController::class, 'store'])->middleware('auth');
 Route::get('edit/{task:slug}', [TaskController::class, 'edit'])->middleware('auth');
 Route::post('update/{task:slug}', [TaskController::class, 'update'])->middleware('auth');
 
-Route::get('delete', [TaskController::class, 'delete'])->middleware('auth');
-Route::delete('tasks/{task:slug}',  [TaskController::class, 'destroy'])->middleware('auth');
+Route::get('admin/delete', [TaskController::class, 'delete'])->middleware('auth');
+Route::delete('admin/tasks/{task:slug}',  [TaskController::class, 'destroy'])->middleware('auth');
 
 Route::get('login', fn() =>view('auth.login'))->name('login')->middleware('guest');
 Route::post('login',[UserController::class,'authenticate'])->middleware('guest');

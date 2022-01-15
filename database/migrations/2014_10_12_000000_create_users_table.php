@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->bcrypt();
+            $table->foreignId('team_id');
             $table->rememberToken();
             $table->timestamps();
         });

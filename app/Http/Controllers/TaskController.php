@@ -9,33 +9,65 @@ use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
-    public static function add()//
+    public function index()
+    {
+        return view(
+            'tasks.index',
+            [
+                'tasks' =>  Task::first()->filter(
+                    [
+                        'search' =>request('search'),
+                        'team' =>auth()->user()->team->id,
+                    ]
+                )->get(),
+            ]
+        );
+    }
+
+    public static function create()
+    {
+        return view('tasks.add-task');
+    }
+    public static function store()
     {
         Task::addNew($_POST['descrizione'], false, Auth::id());
-        return view('index',
-        [
-            'tasks' => Task::all()
-        ]);
+        return redirect('/');
     }
-    public static function done(Task $task)//update
+    public static function edit(Task $task)
     {
-
-        DB::update("update tasks set terminata = 1 where id = $task->id");
         return view(
-            'index',
+            'tasks.edit',
             [
-                'tasks' => Task::all()
+                'task' => $task
             ]
         );
     }
+    public static function update(Task $task)
+    {
+        if (isset($_POST['terminata'])) {
+            $task->terminata = true;
+        } else {
+            $task->terminata = false;
+        }
+        $task->update([
+            'descrizione' => $_POST['descrizione']
+        ]);
+        $task->save();
+        return redirect('/');
+    }
+
     public static function delete()
     {
-        DB::delete('delete from tasks where terminata = 1');
         return view(
-            'index',
+            'tasks.delete',
             [
-                'tasks' => Task::all()
+                'tasks' =>  Task::where('terminata', 1)->get()
             ]
         );
+    }
+    public static function destroy(Task $task)
+    {
+        $task->delete();
+        return redirect('/delete');
     }
 }

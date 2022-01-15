@@ -19,16 +19,18 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', fn () => view('index',['tasks'=> Task::all()]))->name('home');
+Route::get('/', [TaskController::class, 'index'])->middleware('auth')->name('home');
 
-Route::get('add', fn () => view('add-task'))->middleware('auth');
-Route::post('add', [TaskController::class, 'add'])->middleware('auth');
+Route::get('add', [TaskController::class, 'create'])->middleware('auth');
+Route::post('add', [TaskController::class, 'store'])->middleware('auth');
 
-Route::get('done/{task:slug}', [TaskController::class, 'done']);//put update
+Route::get('edit/{task:slug}', [TaskController::class, 'edit'])->middleware('auth');
+Route::post('update/{task:slug}', [TaskController::class, 'update'])->middleware('auth');
 
-Route::get('delete', [TaskController::class, 'delete']);//delete destroy
+Route::get('delete', [TaskController::class, 'delete'])->middleware('auth');
+Route::delete('tasks/{task:slug}',  [TaskController::class, 'destroy'])->middleware('auth');
 
-Route::get('login', fn() =>view('login'))->name('login')->middleware('guest');
+Route::get('login', fn() =>view('auth.login'))->name('login')->middleware('guest');
 Route::post('login',[UserController::class,'authenticate'])->middleware('guest');
 
 Route::get('sing-in', [UserController::class, 'create'])->middleware('guest');

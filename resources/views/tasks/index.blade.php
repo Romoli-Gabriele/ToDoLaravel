@@ -6,7 +6,7 @@
                 @if ($task->terminata)
                     {!!"&#10004"!!}
                 @else
-                    <a style="text-decoration: none; color:black" href="/done/<?=$task->slug?>"><b>To Do</b></a>
+                    <a style="text-decoration: none; color:black" href="/edit/{{$task->slug}}"><b>To Do</b></a>
                 @endif
                 {{$task->descrizione}}
                 

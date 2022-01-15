@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-    
+
     public static function addNew($descrizione, $terminata, $user_id){
         \App\Models\Task::factory([
             'descrizione'=>$descrizione,
@@ -21,4 +21,20 @@ class Task extends Model
         return $this->belongsTo(User::class);
     }
     use HasFactory;
+    public function scopeFilter($query, $filters){
+
+
+        $query
+            ->join('users', 'users.id', '=', 'user_id')
+            ->where('team_id','=', $filters['team']);
+        
+        $query->when($filters['search']?? false, fn()=>
+            $query
+                ->where('descrizione', 'like', '%' . $filters['search'] . '%')
+                ->orWhere('name', 'like', '%'.$filters['search'] . '%')
+                ->get()
+        );
+
+        
+    }
 }

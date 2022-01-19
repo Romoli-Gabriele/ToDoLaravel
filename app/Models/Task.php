@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Error;
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,11 +11,17 @@ class Task extends Model
 {
 
     public static function addNew($descrizione, $terminata, $user_id){
+        $slug = str_replace(' ','-',$descrizione);
+        if (static::whereSlug($slug)->exists()) {
+            return back()->withErrors([
+                'descrizione' => 'this task already exist',
+            ]);
+        }
         \App\Models\Task::factory([
             'descrizione'=>$descrizione,
             'terminata'=>$terminata,
             'user_id'=>$user_id,
-            'slug'=> str_replace(' ','-',$descrizione)
+            'slug'=> $slug
         ])->create();
     }
     public $guarded = ['id'];

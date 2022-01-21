@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Task;
+
 use App\Http\Controllers\TaskController;
+
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use GuzzleHttp\Psr7\Request;
@@ -19,21 +21,15 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', [TaskController::class, 'index'])->middleware('auth')->name('home');
+Route::middleware('auth')->group(function () {
+    Route::resource('/tasks', TaskController::class, ['except' => ['show']]);
+    Route::get('/delete', [TaskController::class, 'delete']);
+    Route::get('logout', [UserController::class, 'logout']);
+});
+Route::middleware('guest')->group(function () {
+    Route::get('/', fn () => view('auth.login'))->name('login');
+    Route::post('login', [UserController::class, 'authenticate']);
 
-Route::get('add', [TaskController::class, 'create'])->middleware('auth');
-Route::post('add', [TaskController::class, 'store'])->middleware('auth');
-
-Route::get('edit/{task:slug}', [TaskController::class, 'edit'])->middleware('auth');
-Route::post('update/{task:slug}', [TaskController::class, 'update'])->middleware('auth');
-
-Route::get('admin/delete', [TaskController::class, 'delete'])->middleware('auth');
-Route::delete('admin/tasks/{task:slug}',  [TaskController::class, 'destroy'])->middleware('auth');
-
-Route::get('login', fn() =>view('auth.login'))->name('login')->middleware('guest');
-Route::post('login',[UserController::class,'authenticate'])->middleware('guest');
-
-Route::get('sing-in', [UserController::class, 'create'])->middleware('guest');
-Route::post('sing-in',[UserController::class, 'store'])->middleware('guest');
-
-route::get('logout', [UserController::class, 'logout'])->middleware('auth');
+    Route::get('sing-in', [UserController::class, 'create']);
+    Route::post('sing-in', [UserController::class, 'store']);
+});

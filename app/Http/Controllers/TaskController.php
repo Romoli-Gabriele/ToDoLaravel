@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Task;
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         return view(
             'tasks.index',
             [
-                'tasks' =>  Task::first()->filter(
+                'tasks' =>  Task::filter(
                     [
                         'search' =>request('search'),
                         'team' =>auth()->user()->team->id,
@@ -26,43 +27,78 @@ class TaskController extends Controller
         );
     }
 
-    public static function create()
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
         return view('tasks.add-task');
     }
-    public static function store()
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
-        Task::addNew($_POST['descrizione'], false, Auth::id());
+        Task::addNew($request['descrizione'], false, auth()->id());
         return redirect('/');
     }
-    public static function edit(Task $task)
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
     {
-        
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
         return view(
             'tasks.edit',
             [
-                'task' => $task
+                'task' => Task::firstWhere('id', $id)
             ]
         );
     }
-    public static function update(Request $request, Task $task)
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
     {
+        
         /*if ($request->user()->cannot('update', $task)) {
             abort(403);
         }*/
-
-        if (isset($_POST['terminata'])) {
+        $task= Task::firstWhere('id', $id);
+        if (isset($request['terminata'])) {
             $task->terminata = true;
         } else {
             $task->terminata = false;
         }
-            $task->update([
-                'descrizione' => $_POST['descrizione']
-            ]);
+            $task->descrizione = $request['descrizione'];
             $task->save();
             return redirect('/');
     }
-
     public static function delete()
     {   
         if(auth()->user()->isLeader()){
@@ -80,13 +116,20 @@ class TaskController extends Controller
             return redirect('/');
         }
     }
-    public static function destroy(Task $task)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
     {
+        $task= Task::firstWhere('id', $id);
         if(auth()->user()->isLeader()){
-        $task->delete();
-        return redirect('/admin/delete');
-        }else{
-            return redirect('/');
-        }
+            $task->delete();
+            return redirect('/admin/delete');
+            }else{
+                return redirect('/');
+            }
     }
 }

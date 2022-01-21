@@ -35,6 +35,9 @@ class UserController extends Controller
         auth()->login($user);
         return redirect()->intended('/');
     }
+    public function login(){
+        return view('login');
+    }
     public function authenticate()
     {
         $credentials = request()->validate([

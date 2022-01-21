@@ -1,6 +1,7 @@
 @extends('layout')
 @section('content')
-    <form method="POST" action="/update/{{$task->slug}}">
+    <form method="POST" action="{{ route('tasks.update', ['task' => $task->id]) }}">
+        @method('PUT')
         @csrf
         <label><b>Edit Task</b></label>
         <input type="text" name="descrizione" value="{{$task->descrizione}}">

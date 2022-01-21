@@ -13,18 +13,17 @@ class Task extends Model
             'descrizione'=>$descrizione,
             'terminata'=>$terminata,
             'user_id'=>$user_id,
-            'slug'=> str_replace(' ','-',$descrizione)
         ])->create();
     }
     public $guarded = ['id'];
+
     public function user(){ //molti a uno
         //hasOne, hanMany, belongsTo, belongsToMany
         return $this->belongsTo(User::class);
     }
+    
     use HasFactory;
     public function scopeFilter($query, $filters){
-
-
         $query
             ->join('users', 'users.id', '=', 'user_id')
             ->where('team_id','=', $filters['team']);
@@ -35,7 +34,5 @@ class Task extends Model
                 ->orWhere('name', 'like', '%'.$filters['search'] . '%')
                 ->get()
         );
-
-        
     }
 }

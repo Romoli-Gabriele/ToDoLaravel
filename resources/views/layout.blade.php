@@ -14,9 +14,9 @@
             @auth
                     <form method="GET" action="/">
                         @if(auth()->user()->isLeader())
-                        <a href="admin/delete"><b>Delete Task</b></a>
+                        <a href="/delete"><b>Delete Task</b></a>
                         @endif
-                        <a href="/add"><b>Add Task</b></a>
+                        <a href="{{ route('tasks.create') }}"><b>Add Task</b></a>
                         <a href="/logout"><b>Logout</b></a>
                         @if (request('team'))
                             <input type="hidden" name="category" value="{{request('category')}}">

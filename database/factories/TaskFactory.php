@@ -16,7 +16,6 @@ class TaskFactory extends Factory
         return [
             'descrizione' => $descrizione =$this->faker->sentence(),
             'terminata' => false,
-            'slug'=> str_replace(' ','-',$descrizione),
             'user_id'=>rand(1,10),
         ];
     }

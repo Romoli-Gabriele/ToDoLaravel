@@ -1,8 +1,5 @@
 @extends('layout')
-@section('content')
-    @error('descrizione')   
-        <p class="text-red">{{ $message }}</p>
-    @enderror
+@section('content')  
     <ul>
         @foreach ($tasks as $task)
             <li>

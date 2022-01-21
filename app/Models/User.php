@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use function PHPUnit\Framework\returnValueMap;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -24,10 +26,12 @@ class User extends Authenticatable
         'team_id'
     ];
 
-    public function tasks(){
+    public function tasks()
+    {
         return $this->hasMany(Task::class);
     }
-    public function team(){
+    public function team()
+    {
         return $this->belongsTo(Team::class);
     }
     /**
@@ -48,5 +52,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+    public function isLeader()
+    {
+        if (auth()->user()->id == auth()->user()->team->team_leader)
+            return true;
+        else
+            return false;
+    }
 }

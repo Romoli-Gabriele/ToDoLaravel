@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
@@ -46,9 +47,9 @@ class TaskController extends Controller
     }
     public static function update(Request $request, Task $task)
     {
-        if ($request->user()->cannot('update', $task)) {
+        /*if ($request->user()->cannot('update', $task)) {
             abort(403);
-        }
+        }*/
 
         if (isset($_POST['terminata'])) {
             $task->terminata = true;
@@ -63,17 +64,29 @@ class TaskController extends Controller
     }
 
     public static function delete()
-    {
+    {   
+        if(auth()->user()->isLeader()){
         return view(
             'tasks.delete',
             [
-                'tasks' =>  Task::where('terminata', 1)->get()
+                'tasks' =>  Task::where('terminata', 1)->filter(
+                    [
+                        'search' =>request('search'),
+                        'team' =>auth()->user()->team->id,
+                    ]
+                )->get(),
             ]
-        );
+        );}else{
+            return redirect('/');
+        }
     }
     public static function destroy(Task $task)
     {
+        if(auth()->user()->isLeader()){
         $task->delete();
-        return redirect('/delete');
+        return redirect('/admin/delete');
+        }else{
+            return redirect('/');
+        }
     }
 }

@@ -13,7 +13,7 @@
             
             @auth
                     <form method="GET" action="/">
-                        @if(auth()->user()->id == auth()->user()->team->team_leader)
+                        @if(auth()->user()->isLeader())
                         <a href="admin/delete"><b>Delete Task</b></a>
                         @endif
                         <a href="/add"><b>Add Task</b></a>

@@ -4,7 +4,7 @@
         <h3>Delete done  task</h3>
         
         @foreach ($tasks as $task)
-        <form method="POST" action="admin/tasks/{{$task->slug}}">
+        <form method="POST" action="/admin/tasks/{{$task->slug}}">
             @csrf
             @method('delete')
             <li><button type="submit">

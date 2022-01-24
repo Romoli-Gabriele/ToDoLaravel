@@ -17,6 +17,7 @@ class CreateTasksTable extends Migration
             $table->id()->autoIncrement();
             $table->string('descrizione');
             $table->boolean('terminata');
+            $table->foreignId('team_id');
             $table->foreignId('user_id');
             $table->timestamps();
         });

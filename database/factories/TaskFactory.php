@@ -16,7 +16,8 @@ class TaskFactory extends Factory
         return [
             'descrizione' => $descrizione =$this->faker->sentence(),
             'terminata' => false,
-            'user_id'=>rand(1,10),
+            'team_id' => rand(1,2),
+            'user_id'=> rand(1.4),
         ];
     }
 }

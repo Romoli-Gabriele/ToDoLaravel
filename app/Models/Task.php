@@ -7,15 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-
-    public static function addNew($descrizione, $terminata, $user_id){
+    protected $fillable = [
+        'descrizione',
+        'terminata',
+        'user_id'
+    ];
+    public static function addNew($descrizione){
         \App\Models\Task::factory([
             'descrizione'=>$descrizione,
-            'terminata'=>$terminata,
-            'user_id'=>$user_id,
+            'terminata'=>false,
+            'user_id'=> auth()->user()->id,
+            'team_id'=> auth()->user()->team_id,
         ])->create();
     }
-    public $guarded = ['id'];
 
     public function user(){ //molti a uno
         //hasOne, hanMany, belongsTo, belongsToMany
@@ -34,5 +38,8 @@ class Task extends Model
                 ->orWhere('name', 'like', '%'.$filters['search'] . '%')
                 ->get()
         );
+    }
+    public function getId(){
+        return $this->id;
     }
 }

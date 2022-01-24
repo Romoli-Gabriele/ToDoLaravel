@@ -17,7 +17,7 @@ class TaskController extends Controller
         return view(
             'tasks.index',
             [
-                'tasks' =>  Task::filter(
+                'tasks' =>  auth()->user()->team->tasks()::filter(
                     [
                         'search' =>request('search'),
                         'team' =>auth()->user()->team->id,

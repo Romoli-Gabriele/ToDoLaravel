@@ -6,7 +6,7 @@
                 @if ($task->terminata)
                     {!!"&#10004"!!}
                 @else
-                    {{$task->id}}
+                    {{$task->getId()}}
                     <a style="text-decoration: none; color:black" href="{{ route('tasks.edit', ['task' => $task->id]) }}"><b>To Do</b></a>
                 @endif
                 {{$task->descrizione}}

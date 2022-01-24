@@ -1,6 +1,6 @@
 @extends('layout')
 @section('content')
-<form method="POST" action="/">
+<form method="POST" action="{{route('tasks.store')}}">
     @csrf
     <label><b>Add Task</b></label>
     <input type="text" name="descrizione" placeholder="description"> 

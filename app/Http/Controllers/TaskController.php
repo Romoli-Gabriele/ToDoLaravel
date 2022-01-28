@@ -17,10 +17,9 @@ class TaskController extends Controller
         return view(
             'tasks.index',
             [
-                'tasks' =>  auth()->user()->team->tasks()::filter(
+                'tasks' =>  auth()->user()->team->tasks()->filter(
                     [
                         'search' =>request('search'),
-                        'team' =>auth()->user()->team->id,
                     ]
                 )->get(),
             ]
@@ -45,7 +44,7 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        Task::addNew($request['descrizione'], false, auth()->id());
+        Task::addNew(request('descrizione'));
         return redirect('/');
     }
 
@@ -55,7 +54,7 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Task $task)
     {
         //
     }
@@ -66,12 +65,12 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Task $task)
     {
         return view(
             'tasks.edit',
             [
-                'task' => Task::firstWhere('id', $id)
+                'task' => $task
             ]
         );
     }
@@ -83,19 +82,14 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Task $task)
     {
-        
-        /*if ($request->user()->cannot('update', $task)) {
-            abort(403);
-        }*/
-        $task= Task::firstWhere('id', $id);
-        if (isset($request['terminata'])) {
+        if (isset($request['descrizione'])) {
             $task->terminata = true;
         } else {
             $task->terminata = false;
         }
-            $task->descrizione = $request['descrizione'];
+            $task->descrizione = request('descrizione');
             $task->save();
             return redirect('/');
     }
@@ -122,12 +116,11 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Task $task)
     {
-        $task= Task::firstWhere('id', $id);
         if(auth()->user()->isLeader()){
             $task->delete();
-            return redirect('/admin/delete');
+            return redirect('/delete');
             }else{
                 return redirect('/');
             }

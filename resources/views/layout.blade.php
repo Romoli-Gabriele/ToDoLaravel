@@ -12,8 +12,8 @@
             @endauth
             <br>
             @guest
-                <a href="/login"><b>Login</b></a>
-                <a href="/sign-in"><b>Sign In</b></a>
+                <a href="/"><b>Login</b></a>
+                <a href="{{route('generated::JXKnpq0bW50T4Ghx')}}"><b>Sign In</b></a>
             @endguest
         </nav>
         <br>

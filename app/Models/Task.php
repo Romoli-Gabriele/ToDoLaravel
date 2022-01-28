@@ -12,14 +12,16 @@ class Task extends Model
         'terminata',
     ];
     
-    public static function addNew($descrizione)
+    public static function addNew($descrizione, $user, $team)
     {
-        \App\Models\Task::factory([
+        $task = new Task([
             'descrizione' => $descrizione,
             'terminata' => false,
-            'user_id' => auth()->user()->id,
-            'team_id' => auth()->user()->team_id,
-        ])->create();
+        ]);
+        
+        $task->team()->associate($team);
+        $task->user()->associate($user);
+        $task->save();
     }
 
     public function user()

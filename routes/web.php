@@ -30,6 +30,6 @@ Route::middleware('guest')->group(function () {
     Route::get('/', fn () => view('auth.login'))->name('login');
     Route::post('login', [UserController::class, 'authenticate']);
 
-    Route::get('sing-in', [UserController::class, 'create']);
-    Route::post('sing-in', [UserController::class, 'store']);
+    Route::get('/register', [UserController::class, 'create'])->name('register');
+    Route::post('/register', [UserController::class, 'store']);
 });

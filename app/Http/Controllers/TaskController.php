@@ -44,7 +44,7 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        Task::addNew(request('descrizione'));
+        Task::addNew(request('descrizione'), auth()->user(), auth()->user()->team);
         return redirect('/');
     }
 

@@ -84,7 +84,7 @@ class TaskController extends Controller
      */
     public function update(Request $request,Task $task)
     {
-        if (isset($request['descrizione'])) {
+        if (isset($request['terminata'])) {
             $task->terminata = true;
         } else {
             $task->terminata = false;

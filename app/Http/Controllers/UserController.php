@@ -31,7 +31,8 @@ class UserController extends Controller
             'team_id'=>'required'
         ]);
         $attributes['password'] = bcrypt($attributes['password']);
-        $user = User::create($attributes);
+        //ddd($attributes);
+        $user = User::addNew($attributes);
         auth()->login($user);
         return redirect()->intended('/');
     }

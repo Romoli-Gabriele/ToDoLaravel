@@ -1,14 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\Task;
-
 use App\Http\Controllers\TaskController;
-
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-use App\Models\User;
-use GuzzleHttp\Psr7\Request;
-use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +19,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::middleware('auth')->group(function () {
     Route::resource('/tasks', TaskController::class, ['except' => ['show']]);
+    Route::resource('/profile', ProfileController::class);
     Route::get('/delete', [TaskController::class, 'delete']);
     Route::get('logout', [UserController::class, 'logout']);
 });

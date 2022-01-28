@@ -23,9 +23,15 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'team_id'
     ];
-
+    protected $guarded = [
+        'id',
+        'team_id',
+        'profile_id'
+    ];
+    public function profile(){
+        return $this->hasOne(Profile::class);
+    }
     public function tasks()
     {
         return $this->hasMany(Task::class);
@@ -59,5 +65,13 @@ class User extends Authenticatable
         else
             return false;
     }
-    
+    public static function addNew($attributes)
+    {
+        $user = new User($attributes);
+        /*$task
+            ->team()->associate($team)
+            ->save();*/
+            $user->save();
+        return $user;
+    }
 }

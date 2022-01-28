@@ -7,7 +7,7 @@
         <nav>
             <a href="/"><h1>Team To Do List</h1></a>
             @auth
-                <h3>Welcome Back {{auth()->user()->name}} Team {{auth()->user()->team->name}}</h3>
+                <h3>Welcome Back <a href="{{route('profile.index')}}">{{auth()->user()->name}}</a> Team {{auth()->user()->team->name}}</h3>
                 <a href="/logout"><b>Logout</b></a>
             @endauth
             <br>

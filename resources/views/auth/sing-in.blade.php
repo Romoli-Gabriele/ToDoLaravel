@@ -1,6 +1,6 @@
 @extends('layout')
 @section('content')
-<form method="POST" action="/sing-in">
+<form method="POST" action="/register">
     @csrf
     <input type="text" name="name" placeholder="name" required>
     @error('name')
@@ -14,7 +14,7 @@
     @error('password')
         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
     @enderror
-    <select name="team_id">
+    <select name="team_id" required>
         @foreach ($teams as $team)
         <option value="{{$team->id}}">{{$team->name}}</option>
         @endforeach

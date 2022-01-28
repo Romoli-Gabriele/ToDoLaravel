@@ -1,6 +1,6 @@
 @extends('layout')
 @section('content')
-<form method="POST" action="/sing-in">
+<form method="POST" action="/register">
     @csrf
     <input type="text" name="name" placeholder="name" required>
     @error('name')

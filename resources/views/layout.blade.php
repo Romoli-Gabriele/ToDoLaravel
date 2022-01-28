@@ -13,7 +13,7 @@
             <br>
             @guest
                 <a href="/"><b>Login</b></a>
-                <a href="{{route('generated::JXKnpq0bW50T4Ghx')}}"><b>Sign In</b></a>
+                <a href="{{route('register')}}"><b>Sign In</b></a>
             @endguest
         </nav>
         <br>

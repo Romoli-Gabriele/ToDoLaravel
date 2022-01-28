@@ -11,17 +11,22 @@ class Task extends Model
         'descrizione',
         'terminata',
     ];
-    
+    protected $guarded = [
+        'id',
+        'user_id',
+        'team_id'
+    ];
+
     public static function addNew($descrizione, $user, $team)
     {
         $task = new Task([
             'descrizione' => $descrizione,
             'terminata' => false,
         ]);
-        
-        $task->team()->associate($team);
-        $task->user()->associate($user);
-        $task->save();
+        $task
+            ->team()->associate($team)
+            ->user()->associate($user)
+            ->save();
     }
 
     public function user()

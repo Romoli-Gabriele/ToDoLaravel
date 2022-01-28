@@ -28,8 +28,8 @@ Route::middleware('auth')->group(function () {
 });
 Route::middleware('guest')->group(function () {
     Route::get('/', fn () => view('auth.login'))->name('login');
-    Route::post('login', [UserController::class, 'authenticate']);
-
     Route::get('/register', [UserController::class, 'create'])->name('register');
+    
+    Route::post('login', [UserController::class, 'authenticate']);
     Route::post('/register', [UserController::class, 'store']);
 });

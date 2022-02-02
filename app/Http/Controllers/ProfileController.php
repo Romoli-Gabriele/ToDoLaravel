@@ -86,7 +86,16 @@ class ProfileController extends Controller
      */
     public function update(Request $request, Profile $profile)
     {
-        //
+        $attributes = request()->validate([
+            'cognome' => 'required',
+            'indirizzo' => 'required',
+            'cellulare' => 'required|numeric',
+            'codice_fiscale' => 'required|size:16',
+            'sede' => 'required',
+            'ruolo' => 'required'
+        ]);
+        $profile->update($attributes);
+        return redirect(route('profile.show', ['profile' => $profile->id]));
     }
 
     /**
@@ -97,6 +106,7 @@ class ProfileController extends Controller
      */
     public function destroy(Profile $profile)
     {
-        //
+        $profile->delete();
+        return redirect('/');
     }
 }

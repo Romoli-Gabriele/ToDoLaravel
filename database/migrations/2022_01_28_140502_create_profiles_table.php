@@ -22,6 +22,7 @@ class CreateProfilesTable extends Migration
             $table->string('sede');
             $table->string('ruolo');
             $table->foreignId('user_id');
+            $table->date('ddn');
             $table->timestamps();
         });
     }

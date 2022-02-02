@@ -8,6 +8,24 @@ use Illuminate\Http\Request;
 class ProfileController extends Controller
 {
     /**
+     *  valida la richiesta di modifica o di creazione
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function valida(Request $request){
+
+        return $request->validate([
+            'cognome' => 'required',
+            'indirizzo' => 'required',
+            'cellulare' => 'required|numeric',
+            'codice_fiscale' => 'required|size:16',
+            'sede' => 'required',
+            'ruolo' => 'required',
+            'ddn' => 'required|date'
+        ]);
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -40,15 +58,7 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        $attributes = request()->validate([
-            'cognome' => 'required',
-            'indirizzo' => 'required',
-            'cellulare' => 'required|numeric',
-            'codice_fiscale' => 'required|size:16',
-            'sede' => 'required',
-            'ruolo' => 'required'
-        ]);
-        
+        $attributes = $this->valida($request);
         Profile::addNew(
             $attributes
         );
@@ -86,14 +96,7 @@ class ProfileController extends Controller
      */
     public function update(Request $request, Profile $profile)
     {
-        $attributes = request()->validate([
-            'cognome' => 'required',
-            'indirizzo' => 'required',
-            'cellulare' => 'required|numeric',
-            'codice_fiscale' => 'required|size:16',
-            'sede' => 'required',
-            'ruolo' => 'required'
-        ]);
+        $attributes = $this->valida($request);
         $profile->update($attributes);
         return redirect(route('profile.show', ['profile' => $profile->id]));
     }

@@ -9,12 +9,13 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    /**
-     * Handle an authentication attempt.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function index(){
+        return view('auth.index',
+      [
+          'users' => User::all()
+      ]  
+    );
+    }
     public function create(){
         return view('auth.sing-in',
     [
@@ -22,22 +23,27 @@ class UserController extends Controller
     ]
     );
     }
-    public function store()
+    /**
+     * Create new user
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {   
-        $attributes = request()->validate([
+        $attributes = $request->validate([
             'name'=>'required|max:255|min:5',
             'email'=>'required|email|max:255|min:5|unique:users,email',
             'password'=>'required|max:255|min:6',
             'team_id'=>'required'
         ]);
         $attributes['password'] = bcrypt($attributes['password']);
-        //ddd($attributes);
         $user = User::addNew($attributes);
         auth()->login($user);
         return redirect()->intended('/');
     }
     public function login(){
-        return view('login');
+        return view('auth.login');
     }
     public function authenticate()
     {

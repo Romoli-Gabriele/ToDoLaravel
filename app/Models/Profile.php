@@ -14,7 +14,8 @@ class Profile extends Model
         'codice_fiscale',
         'cellulare',
         'sede',
-        'ruolo'
+        'ruolo',
+        'ddn'
     ];
 
     protected $guarded = [

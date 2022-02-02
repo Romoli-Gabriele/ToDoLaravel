@@ -11,6 +11,10 @@
     @error('indirizzo')
         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
     @enderror
+    <label>Data di nascita: </label><input type="date" name="ddn" required>
+    @error('ddn')
+        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+    @enderror
     <input type="text" name="codice_fiscale" placeholder="Codice Fiscale" pattern="^[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]$" required>
     @error('codice_fiscale')
         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>

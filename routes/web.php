@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/tasks', TaskController::class);
     Route::resource('/profile', ProfileController::class);
     Route::get('/delete', [TaskController::class, 'delete']);
+    Route::get('/users', [UserController::class, 'index']);
     Route::get('logout', [UserController::class, 'logout']);
 });
 Route::middleware('guest')->group(function () {

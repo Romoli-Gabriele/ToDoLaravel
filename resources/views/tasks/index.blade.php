@@ -3,6 +3,7 @@
 <nav>
     @if(auth()->user()->isLeader())
         <a href="/delete"><b>Delete Task</b></a>
+        <a href="/users"><b>All Users</b></a>
     @endif
     <a href="{{ route('tasks.create') }}"><b>Add Task</b></a>
     <form method="GET" action="/tasks">
@@ -26,6 +27,5 @@
                 {{$task->user->name}}
             </li>
         @endforeach
-    </form>
     </ul>
 @endsection

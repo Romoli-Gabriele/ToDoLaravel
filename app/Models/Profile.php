@@ -9,6 +9,7 @@ class Profile extends Model
 {
 
     protected $fillable = [
+        'cognome',
         'indirizzo',
         'codice_fiscale',
         'cellulare',
@@ -27,18 +28,9 @@ class Profile extends Model
         return $this->hasOne(User::class);
     }
 
-    public static function addNew($indirizzo, $codice_fiscale, $cellulare, $sede, $ruolo, $user)
+    public static function addNew($attributes)
     {
-        $profile = new Profile([
-            'indirizzo' => $indirizzo,
-            'codice_fiscale' => $codice_fiscale,
-            'cellulare' => $cellulare,
-            'sede' => $sede,
-            'ruolo' => $ruolo
-        ]);
-        $profile
-            ->user()->associate($user)
-            ->save();
+        auth()->user()->profile()->create($attributes)->save();
     }
 
     use HasFactory;

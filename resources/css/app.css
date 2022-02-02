@@ -3,3 +3,9 @@ a{
     color:black;
     margin-left:15px;
 }
+.text-red-500{
+    color: red;
+}
+.text-xs{
+    font-size: small;
+}

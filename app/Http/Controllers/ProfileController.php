@@ -16,7 +16,7 @@ class ProfileController extends Controller
     {
         $profile = auth()->user()->profile;
         if(isset($profile)){
-            return route('show', ['profile' => $profile->id]);
+            return redirect(route('profile.show', ['profile' => $profile->id]));
         }else{
             return redirect(route("profile.create"));
         }
@@ -38,21 +38,21 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        request()->validate([
-            'cellulare' => 'required|numeric|between:8,11',
-            'codice_fiscale' => 'required|size:16'
+        $attributes = request()->validate([
+            'cognome' => 'required',
+            'indirizzo' => 'required',
+            'cellulare' => 'required|numeric',
+            'codice_fiscale' => 'required|size:16',
+            'sede' => 'required',
+            'ruolo' => 'required'
         ]);
+        
         Profile::addNew(
-            request('indirizzo'),
-            request('codice_fiscale'),
-            request('cellulare'),
-            request('sede'),
-            request('ruolo'),
-            auth()->user()
+            $attributes
         );
-        return redirect(route("profile.show"));
+        return redirect(route('profile.show', ['profile' => auth()->user()->profile->id]));
     }
 
     /**

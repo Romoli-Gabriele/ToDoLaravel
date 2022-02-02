@@ -68,10 +68,8 @@ class User extends Authenticatable
     public static function addNew($attributes)
     {
         $user = new User($attributes);
-        /*$task
-            ->team()->associate($team)
-            ->save();*/
-            $user->save();
+            $user->team()->associate($attributes['team_id'])
+            ->save();
         return $user;
     }
 }

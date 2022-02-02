@@ -18,7 +18,7 @@ use App\Http\Controllers\UserController;
 */
 
 Route::middleware('auth')->group(function () {
-    Route::resource('/tasks', TaskController::class, ['except' => ['show']]);
+    Route::resource('/tasks', TaskController::class);
     Route::resource('/profile', ProfileController::class);
     Route::get('/delete', [TaskController::class, 'delete']);
     Route::get('logout', [UserController::class, 'logout']);

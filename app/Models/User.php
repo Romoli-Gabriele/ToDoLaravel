@@ -29,6 +29,9 @@ class User extends Authenticatable
         'team_id',
         'profile_id'
     ];
+    public function assignedTasks(){
+        return $this->hasMany(Task::class);
+    }
     public function profile(){
         return $this->hasOne(Profile::class);
     }
@@ -64,6 +67,13 @@ class User extends Authenticatable
             return true;
         else
             return false;
+    }
+    public function isAdmin(){
+        if($this->name == "Gabbo"){
+            return true;
+        }else{
+            return false;
+        }
     }
     public static function addNew($attributes)
     {

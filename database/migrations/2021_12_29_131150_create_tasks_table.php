@@ -19,6 +19,7 @@ class CreateTasksTable extends Migration
             $table->boolean('terminata');
             $table->foreignId('team_id');
             $table->foreignId('user_id');
+            $table->foreignId('assigned_id')->nullable();
             $table->timestamps();
         });
     }

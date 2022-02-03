@@ -14,24 +14,30 @@ class Task extends Model
     protected $guarded = [
         'id',
         'user_id',
-        'team_id'
+        'team_id',
+        'assigned_id'
     ];
 
-    public static function addNew($descrizione, $user, $team)
+    public static function addNew($descrizione, $user, $team, $assigned)
     {
         $task = new Task([
             'descrizione' => $descrizione,
             'terminata' => false,
         ]);
-        $task
-            ->team()->associate($team)
-            ->user()->associate($user)
-            ->save();
+        if(isset($assigned)){
+            $assigned =User::find($assigned);
+            $task->assigned()->associate($assigned);
+        }
+        $task->team()->associate($team);
+        $task->user()->associate($user)->save();
     }
 
     public function user()
     { //molti a uno
         //hasOne, hanMany, belongsTo, belongsToMany
+        return $this->belongsTo(User::class);
+    }
+    public function assigned(){
         return $this->belongsTo(User::class);
     }
 

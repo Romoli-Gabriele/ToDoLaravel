@@ -11,6 +11,7 @@
         checked 
         @endif
         >
+        <input >
         <button type="submit">Submit</button>
     </form>
 @endsection

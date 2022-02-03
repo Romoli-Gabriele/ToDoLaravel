@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use Doctrine\DBAL\Driver\Middleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -63,5 +64,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'Leader' => \App\Http\Middleware\OnlyLeaders::class,
+        'Admin' => \App\Http\Middleware\OnlyAdmins::class,
     ];
 }

@@ -16,18 +16,22 @@ use App\Models\User;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::middleware('auth')->group(function () {
-    Route::resource('/tasks', TaskController::class);
-    Route::resource('/profile', ProfileController::class);
-    Route::get('/delete', [TaskController::class, 'delete']);
-    Route::get('/users', [UserController::class, 'index']);
-    Route::get('logout', [UserController::class, 'logout']);
-});
 Route::middleware('guest')->group(function () {
     Route::get('/', fn () => view('auth.login'))->name('login');
     Route::get('/register', [UserController::class, 'create'])->name('register');
     
     Route::post('login', [UserController::class, 'authenticate']);
     Route::post('/register', [UserController::class, 'store']);
+});
+Route::middleware('auth')->group(function () {
+    Route::resource('/tasks', TaskController::class);
+    Route::resource('/profile', ProfileController::class);
+    Route::get('logout', [UserController::class, 'logout']);
+});
+Route::middleware('Leader')->group(function () {
+    Route::get('team/users', [UserController::class, 'indexTeam'])->middleware('Leader');
+    Route::get('/delete', [TaskController::class, 'delete'])->middleware('Leader');
+});
+Route::middleware('Admin')->group(function(){
+    Route::get('/admin', [UserController::class, 'index']); 
 });

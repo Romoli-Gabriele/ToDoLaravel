@@ -11,6 +11,6 @@
     @enderror
 </form>
 <br>
-<a href="/sing-in">Not registered?</a>
+<a href="/register">Not registered?</a>
 
 @endsection

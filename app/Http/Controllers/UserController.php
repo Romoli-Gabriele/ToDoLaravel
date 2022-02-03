@@ -6,14 +6,23 @@ use App\Models\Team;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Facade\FlareClient\Http\Response;
 
 class UserController extends Controller
 {
-    public function index(){
+    public function indexTeam(){
+        $users = auth()->user()->team->members()->get();
         return view('auth.index',
       [
-          'users' => User::all()
+          'users' => $users
       ]  
+    );
+    }
+    public function index(){
+        return view('auth.index', 
+        [
+            'users' => User::all()
+        ]
     );
     }
     public function create(){

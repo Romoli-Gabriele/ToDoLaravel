@@ -33,7 +33,12 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('tasks.add-task');
+        if(auth()->user()->isLeader()){
+            $data = [
+                'users'=> auth()->user()->team->members()->get()
+            ];
+        }
+        return view('tasks.add-task', $data);
     }
 
     /**
@@ -44,7 +49,12 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        Task::addNew(request('descrizione'), auth()->user(), auth()->user()->team);
+        if(request('assigned')){
+            $assigned = auth()->user()->id;
+        }else{
+            $assigned = request('assigned');
+        }
+        Task::addNew(request('descrizione'), auth()->user(), auth()->user()->team, $assigned);
         return redirect('/');
     }
 

@@ -3,7 +3,10 @@
 <nav>
     @if(auth()->user()->isLeader())
         <a href="/delete"><b>Delete Task</b></a>
-        <a href="/users"><b>All Users</b></a>
+        <a href="team/users"><b>All Team Users</b></a>
+    @elseif(auth()->user()->isAdmin())
+        <a href="/delete"><b>Delete Task</b></a>
+        <a href="admin/users"><b>All Users</b></a>
     @endif
     <a href="{{ route('tasks.create') }}"><b>Add Task</b></a>
     <form method="GET" action="/tasks">
@@ -25,6 +28,12 @@
                 <time>{{$task->created_at->diffForHumans()}}</time>
                 <label><b>By:</b></label>
                 {{$task->user->name}}
+                <label><b>Assigned to: </b></label>
+                @if(isset($task->assigned_id))
+                    {{$task->assigned->name}}
+                @else
+                    Nobody
+                @endif
             </li>
         @endforeach
     </ul>

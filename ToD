@@ -2,6 +2,5 @@
 -admin vede tutto
 -team leader utenti solo del proprio team
 -utente vedere task, aggiungere assegnazione task
-
 - Middleware che vieti l’accesso alle rotte non autorizzate
-Classe request validazione e autorizzazione per lista utenti
+- Classe request validazione e autorizzazione per lista utenti

@@ -22,7 +22,7 @@ class ProfileController extends Controller
             'codice_fiscale' => 'required|size:16',
             'sede' => 'required',
             'ruolo' => 'required',
-            'ddn' => 'required|date'
+            'ddn' => 'required|date|after:01-01-1910|before:01-01-2005'
         ]);
     }
     /**

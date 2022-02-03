@@ -16,4 +16,7 @@ class Team extends Model
     {
         return $this->hasMany(Task::class);
     }
+    public function team_leader(){
+        return $this->hasOne(User::class);
+    }
 }

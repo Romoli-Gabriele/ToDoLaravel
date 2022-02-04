@@ -5,13 +5,15 @@
         @csrf
         <label><b>Edit Task</b></label>
         <input type="text" name="descrizione" value="{{$task->descrizione}}">
+        @isset($task->assigned)
         <label><b>Done</b></label>
         <input type="checkbox" name="terminata" 
         @if ($task->terminata)
         checked 
         @endif
         >
-        @isset($users)
+        @endisset
+        @if($users!=null)
         <label><b>Assign to:</b></label>
         <select name="assigned">
         <option>Nobody</option>
@@ -32,7 +34,7 @@
         @endisset
         >
         @endif
-        @endisset
+        @endif
         <button type="submit">Submit</button>
     </form>
 @endsection

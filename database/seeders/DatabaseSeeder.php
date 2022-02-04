@@ -16,14 +16,14 @@ class DatabaseSeeder extends Seeder
     {   
         $attributes = [
             'name'=>'red',
-            'team_leader'=>1
+            'team_leader'=>2
         ];
         $red = new Team($attributes);
         $red->save();
         
         $attributes = [
             'name'=>'blue',
-            'team_leader'=>2
+            'team_leader'=>3
         ];
         $blue = new Team($attributes);
         $blue->save();

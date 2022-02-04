@@ -29,9 +29,10 @@ Route::middleware('auth')->group(function () {
     Route::get('logout', [UserController::class, 'logout']);
 });
 Route::middleware('Leader')->group(function () {
-    Route::get('team/users', [UserController::class, 'indexTeam'])->middleware('Leader');
-    Route::get('/delete', [TaskController::class, 'delete'])->middleware('Leader');
+    Route::get('team/users', [UserController::class, 'indexTeam']);
+    Route::get('/delete', [TaskController::class, 'delete']);
 });
 Route::middleware('Admin')->group(function(){
-    Route::get('/admin', [UserController::class, 'index']); 
+    Route::get('/admin', [UserController::class, 'index']);
+    Route::get('/delete', [TaskController::class, 'delete']);
 });

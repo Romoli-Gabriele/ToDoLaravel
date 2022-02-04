@@ -3,8 +3,10 @@
 <ul>
     @foreach ($users as $user)
         <li><label class="
-            @if ($user->isLeader())
-                text-red-500
+            @if ($user->isAdmin())
+                text-purple
+            @elseif($user->isLeader())
+                text-red
             @endif
             "
             >{{$user->name}}</label>

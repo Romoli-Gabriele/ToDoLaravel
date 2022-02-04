@@ -1,4 +1,4 @@
-- profilazione ruoli con pacchetti larval Done
+- profilazione ruoli con pacchetti laravel Done
 - admin vede tutto
 - team leader utenti solo del proprio team Done
 - utente vedere task, aggiungere assegnazione task Done
@@ -7,5 +7,4 @@
 - guarda policy
 
 fixare:
-- controller funzioni admin ??
 - utilizzare when

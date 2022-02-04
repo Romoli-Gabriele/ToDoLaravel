@@ -69,7 +69,14 @@ class User extends Authenticatable
             return false;
     }
     public function isAdmin(){
-        if($this->name == "Gabbo"){
+        if($this->id == 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public function isLeaderorAdmin(){
+        if($this->isLeader() || $this->isAdmin()){
             return true;
         }else{
             return false;

@@ -3,8 +3,11 @@ a{
     color:black;
     margin-left:15px;
 }
-.text-red-500{
+.text-red{
     color: red;
+}
+.text-purple{
+    color: green;
 }
 .text-xs{
     font-size: small;

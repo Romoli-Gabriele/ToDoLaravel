@@ -7,7 +7,7 @@
     <label>Assign to:</label>
     @isset($users)
     <select name="assigned">
-        <option>Nobody</option>
+        <option>Nobody</option selected>
         @foreach ($users as $user)
         <option value="{{$user->id}}">{{$user->name}}</option>
         @endforeach

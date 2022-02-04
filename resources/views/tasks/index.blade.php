@@ -1,14 +1,10 @@
 @extends('layout')
 @section('content')  
 <nav>
-    @if(auth()->user()->isLeader())
-        <a href="/delete"><b>Delete Task</b></a>
-        <a href="team/users"><b>All Team Users</b></a>
-    @elseif(auth()->user()->isAdmin())
-        <a href="/delete"><b>Delete Task</b></a>
-        <a href="admin/users"><b>All Users</b></a>
-    @endif
     <a href="{{ route('tasks.create') }}"><b>Add Task</b></a>
+    @if(auth()->user()->isLeader()||auth()->user()->isAdmin())
+    <a href="/delete"><b>Delete Task</b></a>
+    @endif
     <form method="GET" action="/tasks">
     <input type="text" value="{{request('search')}}" name="search" placeholder="Find something" class="bg-transparent placeholder-black font-semibold text-sm">
     <button type="submit">Search</button>

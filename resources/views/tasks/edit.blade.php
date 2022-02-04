@@ -11,7 +11,28 @@
         checked 
         @endif
         >
-        <input >
+        @isset($users)
+        <label><b>Assign to:</b></label>
+        <select name="assigned">
+        <option>Nobody</option>
+        @foreach ($users as $user)
+        <option value="{{$user->id}}" 
+            @if ($task->assigned == $user)
+            selected
+            @endif
+        >{{$user->name}}</option>
+        @endforeach
+        </select>
+        @else
+        @if($task->assigned == null || $task->assigned->id == auth()->user()->id)
+        <label><b>Assign to youself: </b></label>
+        <input type="checkbox" name="assigned"
+        @isset($task->assigned)
+        checked
+        @endisset
+        >
+        @endif
+        @endisset
         <button type="submit">Submit</button>
     </form>
 @endsection

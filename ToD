@@ -1,6 +1,11 @@
 - profilazione ruoli con pacchetti larval Done
--admin vede tutto Done
--team leader utenti solo del proprio team Done
--utente vedere task, aggiungere assegnazione task 
-- Middleware che vieti l’accesso alle rotte non autorizzate
+- admin vede tutto
+- team leader utenti solo del proprio team Done
+- utente vedere task, aggiungere assegnazione task Done
+- Middleware che vieti l’accesso alle rotte non autorizzate Done
 - Classe request validazione e autorizzazione per lista utenti
+- guarda policy
+
+fixare:
+- controller funzioni admin ??
+- utilizzare when

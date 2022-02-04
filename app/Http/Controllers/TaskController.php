@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Task;
+use App\Models\User;
+use Exception;
+
+use function GuzzleHttp\Promise\task;
 
 class TaskController extends Controller
 {
@@ -14,6 +18,18 @@ class TaskController extends Controller
      */
     public function index()
     {
+        if(auth()->user()->isAdmin()){
+            return view(
+                'tasks.index',
+                [
+                    'tasks' => Task::filter(
+                        [
+                            'search' =>request('search'),
+                        ]
+                    )->get(),
+                ]
+            );
+        }
         return view(
             'tasks.index',
             [
@@ -34,11 +50,15 @@ class TaskController extends Controller
     public function create()
     {
         if(auth()->user()->isLeader()){
-            $data = [
+            
+            return view('tasks.add-task',  
+            [
                 'users'=> auth()->user()->team->members()->get()
-            ];
+            ]);
+        }else{
+            return view('tasks.add-task');
         }
-        return view('tasks.add-task', $data);
+        
     }
 
     /**
@@ -49,7 +69,7 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        if(request('assigned')){
+        if(request('assigned') && auth()->user()->isLeader() == false){
             $assigned = auth()->user()->id;
         }else{
             $assigned = request('assigned');
@@ -77,12 +97,21 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        return view(
-            'tasks.edit',
+        if(auth()->user()->isLeader()){
+            
+            return view('tasks.edit',  
             [
-                'task' => $task
-            ]
-        );
+                'task' => $task,
+                'users'=> auth()->user()->team->members()->get()
+            ]);
+        }else{
+            return view(
+                'tasks.edit',
+                [
+                    'task' => $task
+                ]
+            );
+        }
     }
 
     /**
@@ -99,24 +128,47 @@ class TaskController extends Controller
         } else {
             $task->terminata = false;
         }
+        if(request('assigned') && auth()->user()->isLeader() == false){
+            $assigned = auth()->user()->id;
+        }else{
+            $assigned = request('assigned');
+        }
+        try{
+            $task->assigned()->associate(User::findOrFail($assigned));
+        }catch(Exception $e){
+            $task->assigned()->dissociate();
+        }
             $task->descrizione = request('descrizione');
             $task->save();
             return redirect('/');
     }
     public static function delete()
     {   
-        if(auth()->user()->isLeader()){
+        if(auth()->user()->isAdmin()){
         return view(
             'tasks.delete',
             [
                 'tasks' =>  Task::where('terminata', 1)->filter(
                     [
                         'search' =>request('search'),
-                        'team' =>auth()->user()->team->id,
                     ]
                 )->get(),
             ]
-        );}else{
+        );
+        }else if(auth()->user()->isLeader()){
+            return view(
+                'tasks.delete',
+                [
+                    'tasks' =>  Task::where('terminata', 1)->filter(
+                        [
+                            'search' =>request('search'),
+                            'team' =>auth()->user()->team->id,
+                        ]
+                    )->get(),
+                ]
+            );
+        }
+        else{
             return redirect('/');
         }
     }

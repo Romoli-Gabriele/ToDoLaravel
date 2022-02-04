@@ -2,7 +2,7 @@
 @section('content')
 <form method="POST" action="{{route('profile.store')}}">
     @csrf
-    <label><b>Create Profile</b></label><br>
+    <label>Create Profile</label><br>
     <input type="text" name="cognome" placeholder="Cognome" required>
     @error('cognome')
         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>

@@ -3,10 +3,10 @@
     <form method="POST" action="{{ route('tasks.update', ['task' => $task->id]) }}">
         @method('PUT')
         @csrf
-        <label><b>Edit Task</b></label>
+        <label>Edit Task</label>
         <input type="text" name="descrizione" value="{{$task->descrizione}}">
         @isset($task->assigned)
-        <label><b>Done</b></label>
+        <label>Done</label>
         <input type="checkbox" name="terminata" 
         @if ($task->terminata)
         checked 
@@ -14,7 +14,7 @@
         >
         @endisset
         @if($users!=null)
-        <label><b>Assign to:</b></label>
+        <label>Assign to:</label>
         <select name="assigned">
         <option>Nobody</option>
         @foreach ($users as $user)
@@ -27,7 +27,7 @@
         </select>
         @else
         @if($task->assigned == null || $task->assigned->id == auth()->user()->id)
-        <label><b>Assign to youself: </b></label>
+        <label>Assign to youself: </label>
         <input type="checkbox" name="assigned"
         @isset($task->assigned)
         checked

@@ -3,7 +3,7 @@
 <form method="POST" action="{{route('profile.update', ['profile'=>$profile->id])}}">
     @method('PUT')
     @csrf
-    <label><b>Edit Profile</b></label><br>
+    <label>Edit Profile</label><br>
     <label>Cognome: </label><input type="text" name="cognome" value="{{$profile->cognome}}" required>
     @error('cognome')
         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>

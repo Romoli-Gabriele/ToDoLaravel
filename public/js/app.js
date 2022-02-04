@@ -16880,9 +16880,9 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * // => 'hello fred!'
      *
      * // Use the HTML "escape" delimiter to escape data property values.
-     * var compiled = _.template('<b><%- value %></b>');
+     * var compiled = _.template('<%- value %>');
      * compiled({ 'value': '<script>' });
-     * // => '<b>&lt;script&gt;</b>'
+     * // => '&lt;script&gt;'
      *
      * // Use the "evaluate" delimiter to execute JavaScript and generate HTML.
      * var compiled = _.template('<% _.forEach(users, function(user) { %><li><%- user %></li><% }); %>');

@@ -12,9 +12,9 @@
 
                 {{$task->descrizione}}
                 
-                <label><b>Added:</b></label>
+                <label>Added:</label>
                 <time>{{$task->created_at->diffForHumans()}}</time>
-                <label><b>By:</b></label>
+                <label>By:</label>
                 {{$task->user->name}}
             </button>
             </li>

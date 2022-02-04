@@ -63,7 +63,7 @@ class User extends Authenticatable
     ];
     public function isLeader()
     {
-        if ($this->id == $this->team->team_leader)
+        if ($this->id == $this->team->team_leader_id)
             return true;
         else
             return false;

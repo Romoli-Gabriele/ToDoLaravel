@@ -1,7 +1,11 @@
 a{
-    text-decoration: none; 
+    text-decoration: none;
+    font-weight: bold;
     color:black;
     margin-left:15px;
+}
+label{
+    font-weight: bold;
 }
 .text-red{
     color: red;

@@ -1,7 +1,8 @@
 @extends('layout')
-@section('content')
+@section('content') 
 <ul>
-    @foreach ($users as $user)
+    <h5>Team {{$team->name}}</h5>
+    @foreach($members as $user)
         <li><label class="
             @if ($user->isAdmin())
                 text-purple
@@ -10,11 +11,8 @@
             @endif
             "
             >{{$user->name}}</label>
-            
-            
             <label>Email: {{$user->email}}</label>
-            <label>Team: {{$user->team->name}}</label>
-        </li>
+    </li>
     @endforeach
 </ul>
 @endsection

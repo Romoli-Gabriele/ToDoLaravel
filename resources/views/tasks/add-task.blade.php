@@ -2,7 +2,7 @@
 @section('content')
 <form method="POST" action="{{route('tasks.store')}}">
     @csrf
-    <label><b>Add Task</b></label>
+    <label>Add Task</label>
     <input type="text" name="descrizione" placeholder="description">
     <label>Assign to:</label>
     @isset($users)
@@ -13,7 +13,7 @@
         @endforeach
     </select>
     @else
-    <label><b>Assign to youself: </b></label><input type="checkbox" name="assigned">
+    <label>Assign to youself: </label><input type="checkbox" name="assigned">
     @endisset
     <button type="submit">Submit</button>
 </form>

@@ -8,3 +8,22 @@
 
 fixare:
 - utilizzare when
+fai anche una pagina teams dove si vede l'elenco dei team e per ogni team un dettaglio dove si vede l'elenco degli utenti di quel team
+cerca di usare route nested del tipo /teams/{id}/users
+così da poterci fare le autorizzazioni sopra nella classe Request
+nel pomeriggio cmq ci sentiamo  
+
+
+assegnazione task solo ai membri del team del task
+rotte raggruppate leader team
+pratica eloquent: pagina utenti admi aggiunger filtri
+- elenco utenti ruolo team leader
+- utenti almeno un task assegnato
+- prendere quelli senza task
+- aggiungere ruoli pacchetti eloquent laravel roles, solo ruoli no permessi
+- più leader per team 
+- profilo nullable
+- levare campo ruolo profilo
+- creare profilo durante registrazione utente solo nome e cognome obbligatori
+- lista utenti ricerca per nome utente
+- cerca gli utenti che non hanno codice fiscale

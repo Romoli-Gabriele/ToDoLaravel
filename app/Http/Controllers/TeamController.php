@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Team;
+use \HttpOz\Roles\Models\Role;
 
 class TeamController extends Controller
 {
@@ -15,7 +16,8 @@ class TeamController extends Controller
     public function index()
     {
         return view('team.index', [
-            'teams' => Team::all()
+            'teams' => Team::all(),
+            'leaders' => Role::findBySlug('teamLeader')->users
         ]);
     }
 

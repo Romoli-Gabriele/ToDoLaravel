@@ -16,13 +16,12 @@ class CreateProfilesTable extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('cognome');
-            $table->string('indirizzo');
-            $table->string('codice_fiscale');
+            $table->string('indirizzo')->nullable();
+            $table->string('codice_fiscale')->nullable();
             $table->string('cellulare');
-            $table->string('sede');
-            $table->string('ruolo');
+            $table->string('sede')->nullable();
             $table->foreignId('user_id');
-            $table->date('ddn');
+            $table->date('ddn')->nullable();
             $table->timestamps();
         });
     }

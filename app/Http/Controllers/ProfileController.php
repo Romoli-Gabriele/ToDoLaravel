@@ -17,12 +17,11 @@ class ProfileController extends Controller
 
         return $request->validate([
             'cognome' => 'required',
-            'indirizzo' => 'required',
+            'indirizzo' => '',
             'cellulare' => 'required|numeric',
-            'codice_fiscale' => 'required|size:16',
-            'sede' => 'required',
-            'ruolo' => 'required',
-            'ddn' => 'required|date|after:01-01-1910|before:01-01-2005'
+            'codice_fiscale' => '|size:16',
+            'sede' => '',
+            'ddn' => 'date|after:01-01-1910|before:01-01-2005'
         ]);
     }
     /**

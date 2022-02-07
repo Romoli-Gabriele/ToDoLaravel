@@ -29,12 +29,14 @@ Route::middleware('auth')->group(function () {
     Route::resource('/profile', ProfileController::class);
     Route::get('logout', [UserController::class, 'logout']);
 });
-Route::middleware('Leader')->group(function () {
+Route::middleware('role:teamleader')->group(function () {
     Route::get('team/users', [UserController::class, 'indexTeam']);
     Route::get('/delete', [TaskController::class, 'delete']);
 });
-Route::middleware('Admin')->group(function(){
+Route::middleware('role:admin')->group(function(){
     Route::get('/admin', [UserController::class, 'index']);
+    Route::get('/admin/roles/{user:id}', [UserController::class, 'editRoles']);
+    Route::put('/admin/roles/{user:id}', [UserController::class, 'updateRoles']);
     Route::resource('/admin/teams', TeamController::class);
-    Route::get('/delete', [TaskController::class, 'delete']);
+    Route::get('/admin/delete', [TaskController::class, 'delete']);
 });

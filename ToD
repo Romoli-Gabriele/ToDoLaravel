@@ -14,16 +14,17 @@ così da poterci fare le autorizzazioni sopra nella classe Request
 nel pomeriggio cmq ci sentiamo  
 
 
-assegnazione task solo ai membri del team del task
 rotte raggruppate leader team
-pratica eloquent: pagina utenti admi aggiunger filtri
+pratica eloquent: pagina utenti admim aggiunger filtri
 - elenco utenti ruolo team leader
 - utenti almeno un task assegnato
 - prendere quelli senza task
-- aggiungere ruoli pacchetti eloquent laravel roles, solo ruoli no permessi
+ aggiungere ruoli pacchetti eloquent laravel roles https://github.com/httpoz/roles, solo ruoli no permessi
 - più leader per team 
 - profilo nullable
 - levare campo ruolo profilo
 - creare profilo durante registrazione utente solo nome e cognome obbligatori
 - lista utenti ricerca per nome utente
 - cerca gli utenti che non hanno codice fiscale
+- admin non ha team
+- classi request per validazione e autorizzzazione

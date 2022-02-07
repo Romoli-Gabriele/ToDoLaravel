@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
+use HttpOz\Roles\Traits\HasRole;
+use HttpOz\Roles\Contracts\HasRole as HasRoleContract;
 use function PHPUnit\Framework\returnValueMap;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasRoleContract
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRole;
 
     /**
      * The attributes that are mass assignable.
@@ -29,10 +30,12 @@ class User extends Authenticatable
         'team_id',
         'profile_id'
     ];
-    public function assignedTasks(){
+    public function assignedTasks()
+    {
         return $this->hasMany(Task::class);
     }
-    public function profile(){
+    public function profile()
+    {
         return $this->hasOne(Profile::class);
     }
     public function tasks()
@@ -61,32 +64,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function isLeader()
-    {
-        if ($this->id == $this->team->team_leader_id)
-            return true;
-        else
-            return false;
-    }
-    public function isAdmin(){
-        if($this->id == 1){
-            return true;
-        }else{
-            return false;
-        }
-    }
-    public function isLeaderorAdmin(){
-        if($this->isLeader() || $this->isAdmin()){
-            return true;
-        }else{
-            return false;
-        }
-    }
+
     public static function addNew($attributes)
     {
         $user = new User($attributes);
-            $user->team()->associate($attributes['team_id'])
+        $user->team()->associate($attributes['team_id'])
             ->save();
         return $user;
+    }
+    public function scopeFilter($query, $filters)
+    {
+        
     }
 }

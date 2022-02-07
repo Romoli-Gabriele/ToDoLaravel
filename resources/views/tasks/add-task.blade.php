@@ -4,10 +4,13 @@
     @csrf
     <label>Add Task</label>
     <input type="text" name="descrizione" placeholder="description">
-    <label>Assign to:</label>
     @isset($users)
+    <label>Assign to:</label>
     <select name="assigned">
+        @role('admin')
+        @else
         <option>Nobody</option selected>
+        @endrole
         @foreach ($users as $user)
         <option value="{{$user->id}}">{{$user->name}}</option>
         @endforeach

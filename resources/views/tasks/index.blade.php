@@ -2,8 +2,10 @@
 @section('content')  
 <nav>
     <a href="{{ route('tasks.create') }}">Add Task</a>
-    @if(auth()->user()->isLeader()||auth()->user()->isAdmin())
+    @if(auth()->user()->isTeamleader())
     <a href="/delete">Delete Task</a>
+    @elseif(auth()->user()->isAdmin())
+        <a href="/admin/delete">Delete Task</a>
     @endif
     <form method="GET" action="/tasks">
     <input type="text" value="{{request('search')}}" name="search" placeholder="Find something" class="bg-transparent placeholder-black font-semibold text-sm">

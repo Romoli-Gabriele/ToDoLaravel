@@ -4,16 +4,19 @@
     @foreach ($users as $user)
         <li><label class="
             @if ($user->isAdmin())
-                text-purple
-            @elseif($user->isLeader())
+                text-green
+            @elseif($user->isTeamLeader())
                 text-red
             @endif
             "
-            >{{$user->name}}</label>
-            
-            
-            <label>Email: {{$user->email}}</label>
-            <label>Team: {{$user->team->name}}</label>
+            >Nome: </label>{{$user->name}}
+            <label>Email: </label>{{$user->email}}
+            @if(!$user->isAdmin())
+            <label>Team: </label>{{$user->team->name}}
+            @endif
+            @role('admin')
+            <a href="/admin/roles/{{$user->id}}">Edit Roles</a>
+            @endrole
         </li>
     @endforeach
 </ul>

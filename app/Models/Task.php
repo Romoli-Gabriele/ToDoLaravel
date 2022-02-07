@@ -44,7 +44,7 @@ class Task extends Model
     public function team()
     { //molti a uno
         //hasOne, hanMany, belongsTo, belongsToMany
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Team::class);
     }
 
     use HasFactory;
@@ -58,6 +58,12 @@ class Task extends Model
                 ->orWhereHas('user', fn ($query) => $query
                     ->where('name', 'like', "%{$filters['search']}%"))
                 ->get()
+        );
+        $query->when(
+            $filters['team'] ?? false,
+            fn()=>
+            $query
+                ->where('team_id', 'like', $filters['team'])->get()
         );
     }
     public function getId()

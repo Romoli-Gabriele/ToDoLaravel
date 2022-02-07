@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Task;
+use App\Models\Team;
 use App\Models\User;
 use Exception;
 
@@ -47,7 +48,8 @@ class TaskController extends Controller
         $users = null;
         if (auth()->user()->isAdmin()) {
             $users = User::all();
-        } else if (auth()->user()->isLeader()) {
+            $users->forget(auth()->user()->id - 1);
+        } else if (auth()->user()->isTeamleader()) {
             $users = auth()->user()->team->members()->get();
         }
         return view(
@@ -66,12 +68,18 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        if (request('assigned') && auth()->user()->isLeader() == false) {
-            $assigned = auth()->user()->id;
-        } else {
+        if (auth()->user()->isTeamleader()) {
             $assigned = request('assigned');
+            $team = auth()->user()->team;
+        } else if(auth()->user()->isAdmin()){
+            $assigned = request('assigned');
+            $team = User::find($assigned)->team;
+        }else{
+            $assigned = auth()->user()->id;
+            $team = auth()->user()->team;
         }
-        Task::addNew(request('descrizione'), auth()->user(), auth()->user()->team, $assigned);
+        
+        Task::addNew(request('descrizione'), auth()->user(), $team, $assigned);
         return redirect('/');
     }
 
@@ -95,10 +103,8 @@ class TaskController extends Controller
     public function edit(Task $task)
     {
         $users = null;
-        if (auth()->user()->isAdmin()) {
-            $users = User::all();
-        }else if(auth()->user()->isLeader()){
-            $users = auth()->user()->team->members()->get();
+        if (auth()->user()->isAdmin() || auth()->user()->isTeamleader()){
+            $users = $task->team->members;
         }
         return view(
             'tasks.edit',
@@ -118,10 +124,10 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        if (request('assigned') && auth()->user()->isLeaderOrAdmin() == false ) {
-            $assigned = auth()->user()->id;
-        } else {
+        if (auth()->user()->isAdmin()||auth()->user()->isTeamleader()) {
             $assigned = request('assigned');
+        } else if(isset($request['assigned'])){
+            $assigned = auth()->user()->id;
         }
         try {
             $task->assigned()->associate(User::findOrFail($assigned));
@@ -150,7 +156,7 @@ class TaskController extends Controller
                     )->get(),
                 ]
             );
-        } else if (auth()->user()->isLeader()) {
+        } else if (auth()->user()->isTeamleader()) {
             return view(
                 'tasks.delete',
                 [
@@ -174,11 +180,15 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        if (auth()->user()->isLeader()) {
+        if (auth()->user()->isAdmin() || auth()->user()->isTeamleader()) {
             $task->delete();
-            return redirect('/delete');
+            if(auth()->user()->isAdmin()){
+                return redirect('/admin/delete');
+            }else{
+                return redirect('/delete');
+            }
         } else {
-            return redirect('/');
+            abort(403);
         }
     }
 }

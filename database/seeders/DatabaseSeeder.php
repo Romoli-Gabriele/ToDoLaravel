@@ -57,7 +57,8 @@ class DatabaseSeeder extends Seeder
             'team_id'=> null
         ];
         $attributes['password'] = bcrypt($attributes['password']);
-        $admin = User::addNew($attributes);
+        $admin = new User($attributes);
+        $admin->save();
         $admin->attachRole($adminRole);
         $admin->save();
     }

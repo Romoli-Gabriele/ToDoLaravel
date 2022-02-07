@@ -29,10 +29,6 @@ class Profile extends Model
         return $this->hasOne(User::class);
     }
 
-    public static function addNew($attributes)
-    {
-        auth()->user()->profile()->create($attributes)->save();
-    }
 
     use HasFactory;
 }

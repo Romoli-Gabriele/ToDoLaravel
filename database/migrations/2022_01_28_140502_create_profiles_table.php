@@ -18,9 +18,9 @@ class CreateProfilesTable extends Migration
             $table->string('cognome');
             $table->string('indirizzo')->nullable();
             $table->string('codice_fiscale')->nullable();
-            $table->string('cellulare');
+            $table->string('cellulare')->nullable();
             $table->string('sede')->nullable();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->default(1);
             $table->date('ddn')->nullable();
             $table->timestamps();
         });

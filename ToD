@@ -19,12 +19,12 @@ pratica eloquent: pagina utenti admim aggiunger filtri
 - elenco utenti ruolo team leader
 - utenti almeno un task assegnato
 - prendere quelli senza task
- aggiungere ruoli pacchetti eloquent laravel roles https://github.com/httpoz/roles, solo ruoli no permessi
-- più leader per team 
-- profilo nullable
-- levare campo ruolo profilo
-- creare profilo durante registrazione utente solo nome e cognome obbligatori
+aggiungere ruoli pacchetti eloquent laravel roles https://github.com/httpoz/roles, solo ruoli no permessi
+più leader per team 
+profilo nullable
+levare campo ruolo profilo
+creare profilo durante registrazione utente solo nome e cognome obbligatori
 - lista utenti ricerca per nome utente
 - cerca gli utenti che non hanno codice fiscale
-- admin non ha team
-- classi request per validazione e autorizzzazione
+admin non ha team
+ - classi request per validazione e autorizzzazione

@@ -4,26 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Profile;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProfileRequest;
 
 class ProfileController extends Controller
 {
-    /**
-     *  valida la richiesta di modifica o di creazione
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
-    public function valida(Request $request){
-
-        return $request->validate([
-            'cognome' => 'required',
-            'indirizzo' => '',
-            'cellulare' => 'required|numeric',
-            'codice_fiscale' => '|size:16',
-            'sede' => '',
-            'ddn' => 'date|after:01-01-1910|before:01-01-2005'
-        ]);
-    }
     /**
      * Display a listing of the resource.
      *
@@ -55,9 +39,9 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProfileRequest $request)
     {
-        $attributes = $this->valida($request);
+        $attributes = $request->validated();
         Profile::addNew(
             $attributes
         );
@@ -93,9 +77,9 @@ class ProfileController extends Controller
      * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Profile $profile)
+    public function update(ProfileRequest $request, Profile $profile)
     {
-        $attributes = $this->valida($request);
+        $attributes = $request->validated();
         $profile->update($attributes);
         return redirect(route('profile.show', ['profile' => $profile->id]));
     }

@@ -68,8 +68,10 @@ class User extends Authenticatable implements HasRoleContract
     public static function addNew($attributes)
     {
         $user = new User($attributes);
-        $user->team()->associate($attributes['team_id'])
-            ->save();
+        $user->team()->associate($attributes['team_id']);
+        $user->save();
+        $user->profile()->create($attributes);
+        $user->save();
         return $user;
     }
     public function scopeFilter($query, $filters)

@@ -5,7 +5,7 @@
         <li><label class="
             @if ($user->isAdmin())
                 text-green
-            @elseif($user->isTeamLeader())
+            @elseif($user->isTeamleader())
                 text-red
             @endif
             "

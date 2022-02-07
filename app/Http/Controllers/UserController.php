@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Auth\LoginRequest;
 use App\Models\Team;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Http\Requests\RoleRequest;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
+use App\Models\Profile;
 use HttpOz\Roles\Models\Role;
 use Facade\FlareClient\Http\Response;
 
@@ -39,29 +43,21 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {   
-        $attributes = $request->validate([
-            'name'=>'required|max:255|min:5',
-            'email'=>'required|email|max:255|min:5|unique:users,email',
-            'password'=>'required|max:255|min:6',
-            'team_id'=>''
-        ]);
+        $attributes = $request->validated();
         $attributes['password'] = bcrypt($attributes['password']);
-        $user = User::addNew($attributes);
-        $profile = 
+        $user = User::addNew($attributes);    
         auth()->login($user);
         return redirect()->intended('/');
     }
+
     public function login(){
         return view('auth.login');
     }
-    public function authenticate()
+    public function authenticate(LoginRequest $request)
     {
-        $credentials = request()->validate([
-            'email' => 'required|email',
-            'password' =>  'required',
-        ]);
+        $credentials = $request->validated();
 
         if (auth()->attempt($credentials)) {
 
@@ -83,7 +79,7 @@ class UserController extends Controller
         ]);
     }
     
-    public function updateRoles(Request $request, User $user){
+    public function updateRoles(RoleRequest $request, User $user){
         
         foreach(Role::all() as $role){
             if(isset($request[$role->slug])){

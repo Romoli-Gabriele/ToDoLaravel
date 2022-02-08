@@ -28,9 +28,11 @@ class UserController extends Controller
         [
             'users' => User::filter(
                 [
+                    'search'=> request('search'),
                     'teamleader'=> request('teamleader'),
                     'onetask'=> request('onetask'),
-                    'zerotask' => request('zerotask')
+                    'zerotask' => request('zerotask'),
+                    'noCF'=> request('noCF')
                 ]
             )->get()
         ]

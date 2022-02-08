@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use HttpOz\Roles\Traits\HasRole;
 use HttpOz\Roles\Contracts\HasRole as HasRoleContract;
+use Illuminate\Support\Facades\DB;
 use function PHPUnit\Framework\returnValueMap;
 
 class User extends Authenticatable implements HasRoleContract
@@ -30,21 +31,23 @@ class User extends Authenticatable implements HasRoleContract
         'team_id',
         'profile_id'
     ];
-    public function assignedTasks()
-    {
-        return $this->hasMany(Task::class);
-    }
+
     public function profile()
     {
         return $this->hasOne(Profile::class);
     }
+    /*
     public function tasks()
     {
         return $this->hasMany(Task::class);
-    }
+    }*/
     public function team()
     {
         return $this->belongsTo(Team::class);
+    }
+    public function assignedTasks()
+    {
+        return $this->hasMany(Task::class);
     }
     /**
      * The attributes that should be hidden for serialization.
@@ -77,6 +80,12 @@ class User extends Authenticatable implements HasRoleContract
     public function scopeFilter($query, $filters)
     {
         $query->when(
+            $filters['search'] ?? false,
+            fn()=>
+            $query
+                ->where('name', 'like', "%{$filters['search']}%")->get()
+        );
+        $query->when(
             $filters['teamleader'] ?? false,
             fn () =>
             $query->whereHas('roles', function ($query) {
@@ -86,10 +95,28 @@ class User extends Authenticatable implements HasRoleContract
         $query->when(
             $filters['onetask'] ?? false,
             fn () =>
-            $query->whereDoesntHave('tasks', function ($query) {
-                $query->where('terminata', 'true');
-            })->get()
+            $query->whereIn(
+                'users.id',
+                fn ($query) =>
+                $query->select('assigned_id')->from('tasks')
+            )
         );
-
+        $query->when(
+            $filters['zerotask'] ?? false,
+            fn () =>
+            $query->whereNotIn(
+                'users.id',
+                fn ($q) =>
+                $q->select('assigned_id')->from('tasks')
+            )
+        );
+        $query->when(
+            $filters['noCF'] ?? false,
+            fn () =>
+            $query->whereHas('profile',
+            fn($query)=>
+                $query->where('codice_fiscale', null)
+            )
+        );
     }
 }

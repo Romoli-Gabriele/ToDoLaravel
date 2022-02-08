@@ -6,12 +6,23 @@
     checked
     @endisset
     >
-    <label>Only user with one task assigned</label><input type="checkbox" name="onetask"
+    <label>Users already assigned</label><input type="checkbox" name="onetask"
     @isset($_GET['onetask'])
     checked
     @endisset
     >
-    <label></label>
+    <label>Free users</label><input type="checkbox" name="zerotask"
+    @isset($_GET['zerotask'])
+    checked
+    @endisset
+    >
+    <label>Users without CF</label><input type="checkbox" name="noCF"
+    @isset($_GET['noCF'])
+    checked
+    @endisset
+    >
+    <br>
+    <input type="text" value="{{request('search')}}" name="search" placeholder="Find something" class="text-sm">
     <button type="submit">Submit</button>
 </form>
 

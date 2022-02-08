@@ -1,30 +1,16 @@
-- profilazione ruoli con pacchetti laravel Done
-- admin vede tutto
-- team leader utenti solo del proprio team Done
-- utente vedere task, aggiungere assegnazione task Done
-- Middleware che vieti l’accesso alle rotte non autorizzate Done
-- Classe request validazione e autorizzazione per lista utenti
-- guarda policy
-
-fixare:
-- utilizzare when
-fai anche una pagina teams dove si vede l'elenco dei team e per ogni team un dettaglio dove si vede l'elenco degli utenti di quel team
-cerca di usare route nested del tipo /teams/{id}/users
-così da poterci fare le autorizzazioni sopra nella classe Request
-nel pomeriggio cmq ci sentiamo  
 
 
 rotte raggruppate leader team
 pratica eloquent: pagina utenti admim aggiungere filtri
 elenco utenti ruolo team leader
-- utenti almeno un task assegnato
-- prendere quelli senza task
+utenti almeno un task assegnato
+prendere quelli senza task
 aggiungere ruoli pacchetti eloquent laravel roles https://github.com/httpoz/roles, solo ruoli no permessi
 più leader per team 
 profilo nullable
 levare campo ruolo profilo
 creare profilo durante registrazione utente solo nome e cognome obbligatori
-- lista utenti ricerca per nome utente
-- cerca gli utenti che non hanno codice fiscale
+lista utenti ricerca per nome utente
+cerca gli utenti che non hanno codice fiscale
 admin non ha team
 classi request per validazione e autorizzzazione

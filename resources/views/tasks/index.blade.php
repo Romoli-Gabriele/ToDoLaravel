@@ -8,7 +8,7 @@
         <a href="/admin/delete">Delete Task</a>
     @endif
     <form method="GET" action="/tasks">
-    <input type="text" value="{{request('search')}}" name="search" placeholder="Find something" class="bg-transparent placeholder-black font-semibold text-sm">
+    <input type="text" value="{{request('search')}}" name="search" placeholder="Find something" class="text-sm">
     <button type="submit">Search</button>
     </form>
 </nav>

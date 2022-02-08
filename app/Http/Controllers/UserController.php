@@ -16,12 +16,19 @@ use Facade\FlareClient\Http\Response;
 class UserController extends Controller
 {
     public function indexTeam(){
-        $users = auth()->user()->team->members()->get();
-        return view('auth.index',
-      [
-          'users' => $users
-      ]  
-    );
+        return view('auth.index',[
+          'users' => User::filter(
+            [
+                'team' => auth()->user()->team->id,
+                'search'=> request('search'),
+                'teamleader'=> request('teamleader'),
+                'onetask'=> request('onetask'),
+                'zerotask' => request('zerotask'),
+                'noCF'=> request('noCF')
+            ]
+        )->get()
+        ]
+     );
     }
     public function index(){
         return view('auth.index', 

@@ -27,7 +27,7 @@ class UserRequest extends FormRequest
             'name'=>'required|max:255|min:5',
             'email'=>'required|email|max:255|min:5|unique:users,email',
             'password'=>'required|max:255|min:6',
-            'team_id'=>'numeric',
+            'team_id'=>'numeric|exists:teams,id',
             'cognome' => 'required|max:255|min:5'
         ];
     }

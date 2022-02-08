@@ -36,18 +36,18 @@ class User extends Authenticatable implements HasRoleContract
     {
         return $this->hasOne(Profile::class);
     }
-    /*
+    
     public function tasks()
     {
         return $this->hasMany(Task::class);
-    }*/
+    }
     public function team()
     {
         return $this->belongsTo(Team::class);
     }
     public function assignedTasks()
     {
-        return $this->hasMany(Task::class);
+        return $this->hasMany(Task::class, 'assigned_id');
     }
     /**
      * The attributes that should be hidden for serialization.
@@ -80,6 +80,12 @@ class User extends Authenticatable implements HasRoleContract
     public function scopeFilter($query, $filters)
     {
         $query->when(
+            $filters['team'] ?? false,
+            fn()=>
+            $query
+                ->where('team_id', 'like', $filters['team'])->get()
+        );
+        $query->when(
             $filters['search'] ?? false,
             fn()=>
             $query
@@ -89,7 +95,7 @@ class User extends Authenticatable implements HasRoleContract
             $filters['teamleader'] ?? false,
             fn () =>
             $query->whereHas('roles', function ($query) {
-                $query->where('role_id', '=', '2');
+                $query->where('slug', '=', 'teamleader');
             })->get()
         );
         $query->when(
@@ -115,7 +121,7 @@ class User extends Authenticatable implements HasRoleContract
             fn () =>
             $query->whereHas('profile',
             fn($query)=>
-                $query->where('codice_fiscale', null)
+                $query->whereNull('codice_fiscale')
             )
         );
     }

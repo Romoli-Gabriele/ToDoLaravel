@@ -1,6 +1,12 @@
 @extends('layout')
 @section('content')
-<form action="/admin" method="GET">
+<form action="
+@if(auth()->user()->isAdmin())
+/admin
+@else
+/team/{{auth()->user()->team->id}}/users
+@endif
+" method="GET">
     <label>Only team leaders</label><input type="checkbox" name="teamleader"
     @isset($_GET['teamleader'])
     checked

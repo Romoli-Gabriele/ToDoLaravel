@@ -1,5 +1,3 @@
-
-
 rotte raggruppate leader team
 pratica eloquent: pagina utenti admim aggiungere filtri
 elenco utenti ruolo team leader
@@ -14,3 +12,11 @@ lista utenti ricerca per nome utente
 cerca gli utenti che non hanno codice fiscale
 admin non ha team
 classi request per validazione e autorizzzazione
+
+
+filtri anche da team leader
+rimuovi campo team leader
+- multilingua blade ita inglese e un'altra, anche a descrizione task
+- pacchetto traduzione https://github.com/spatie/laravel-translatable
+- a chi gli viene assegnato un task deve arrivargli una mail di avvertimento
+- quando viene completato arriva mail al team leader

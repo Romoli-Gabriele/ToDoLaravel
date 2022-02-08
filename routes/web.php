@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::get('logout', [UserController::class, 'logout']);
 });
 Route::middleware('role:teamleader')->group(function () {
-    Route::get('team/users', [UserController::class, 'indexTeam']);
+    Route::get('team/{team:id}/users', [UserController::class, 'indexTeam']);//aggiungere id del team e request se fa parte di quel team
     Route::get('/delete', [TaskController::class, 'delete']);
 });
 Route::middleware('role:admin')->group(function(){

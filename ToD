@@ -15,8 +15,8 @@ nel pomeriggio cmq ci sentiamo
 
 
 rotte raggruppate leader team
-pratica eloquent: pagina utenti admim aggiunger filtri
-- elenco utenti ruolo team leader
+pratica eloquent: pagina utenti admim aggiungere filtri
+elenco utenti ruolo team leader
 - utenti almeno un task assegnato
 - prendere quelli senza task
 aggiungere ruoli pacchetti eloquent laravel roles https://github.com/httpoz/roles, solo ruoli no permessi
@@ -27,4 +27,4 @@ creare profilo durante registrazione utente solo nome e cognome obbligatori
 - lista utenti ricerca per nome utente
 - cerca gli utenti che non hanno codice fiscale
 admin non ha team
- - classi request per validazione e autorizzzazione
+classi request per validazione e autorizzzazione

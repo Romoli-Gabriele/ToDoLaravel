@@ -76,6 +76,20 @@ class User extends Authenticatable implements HasRoleContract
     }
     public function scopeFilter($query, $filters)
     {
-        
+        $query->when(
+            $filters['teamleader'] ?? false,
+            fn () =>
+            $query->whereHas('roles', function ($query) {
+                $query->where('role_id', '=', '2');
+            })->get()
+        );
+        $query->when(
+            $filters['onetask'] ?? false,
+            fn () =>
+            $query->whereDoesntHave('tasks', function ($query) {
+                $query->where('terminata', 'true');
+            })->get()
+        );
+
     }
 }

@@ -26,7 +26,13 @@ class UserController extends Controller
     public function index(){
         return view('auth.index', 
         [
-            'users' => User::all()
+            'users' => User::filter(
+                [
+                    'teamleader'=> request('teamleader'),
+                    'onetask'=> request('onetask'),
+                    'zerotask' => request('zerotask')
+                ]
+            )->get()
         ]
     );
     }

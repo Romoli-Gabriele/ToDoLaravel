@@ -1,15 +1,15 @@
 @extends('layout')
 @section('content')  
 <nav>
-    <a href="{{ route('tasks.create') }}">Add Task</a>
+    <a href="{{ route('tasks.create') }}">{{__('task.add')}}</a>
     @if(auth()->user()->isTeamleader())
-    <a href="/delete">Delete Task</a>
+    <a href="/delete">{{__('task.delete')}}</a>
     @elseif(auth()->user()->isAdmin())
-        <a href="/admin/delete">Delete Task</a>
+        <a href="/admin/delete">{{__('task.delete')}}</a>
     @endif
     <form method="GET" action="/tasks">
-    <input type="text" value="{{request('search')}}" name="search" placeholder="Find something" class="text-sm">
-    <button type="submit">Search</button>
+    <input type="text" value="{{request('search')}}" name="search" placeholder="{{__('task.find')}}" class="text-sm">
+    <button type="submit">{{__('task.search')}}</button>
     </form>
 </nav>
     <ul>
@@ -18,19 +18,19 @@
                 @if ($task->terminata)
                     {!!"&#10004"!!}
                 @else
-                    <a style="text-decoration: none; color:black" href="{{ route('tasks.edit', ['task' => $task->id]) }}">To Do</a>
+                    <a style="text-decoration: none; color:black" href="{{ route('tasks.edit', ['task' => $task->id]) }}">{{__('task.todo')}}</a>
                 @endif
                 {{$task->descrizione}}
                 
-                <label>Added:</label>
+                <label>{{__('task.added')}}:</label>
                 <time>{{$task->created_at->diffForHumans()}}</time>
-                <label>By:</label>
+                <label>{{__('task.by')}}:</label>
                 {{$task->user->name}}
-                <label>Assigned to: </label>
+                <label>{{__('task.assign')}}: </label>
                 @if(isset($task->assigned_id))
                     {{$task->assigned->name}}
                 @else
-                    Nobody
+                {{__('task.nobody')}}
                 @endif
             </li>
         @endforeach

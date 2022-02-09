@@ -1,11 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TeamController;
 use App\Models\User;
+use JetBrains\PhpStorm\Language;
+use  App\Http\Controllers\LanguageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +20,9 @@ use App\Models\User;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+ 
+Route::get('change', [LanguageController::class, 'change']);
 Route::middleware('guest')->group(function () {
     Route::get('/', fn () => view('auth.login'))->name('login');
     Route::get('/register', [UserController::class, 'create'])->name('register');

@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => $_SESSION['language'],
 
     /*
     |--------------------------------------------------------------------------
@@ -230,5 +230,10 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
     ],
+    'languages'=>[
+        'en'=>'English',
+        'it'=>'Italian',
+        'fr'=>'French'
+    ]
 
 ];

@@ -12,10 +12,11 @@ use App\Models\User;
 use App\Models\Profile;
 use HttpOz\Roles\Models\Role;
 use Facade\FlareClient\Http\Response;
+use Illuminate\Support\Facades\App;
 
 class UserController extends Controller
 {
-    public function indexTeam(){
+    public function indexTeam(){  
         return view('auth.index',[
           'users' => User::filter(
             [

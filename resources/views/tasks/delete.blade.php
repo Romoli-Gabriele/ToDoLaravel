@@ -1,7 +1,7 @@
 @extends('layout')
 @section('content')  
     <ul>
-        <h3>Delete done  task</h3>
+        <h3>{{__('task.deletedone')}}</h3>
         
         @foreach ($tasks as $task)
         <form method="POST" action="{{ route('tasks.destroy', ['task' => $task->id]) }}">
@@ -12,9 +12,9 @@
 
                 {{$task->descrizione}}
                 
-                <label>Added:</label>
+                <label>{{__('task.added')}}:</label>
                 <time>{{$task->created_at->diffForHumans()}}</time>
-                <label>By:</label>
+                <label>{{__('task.by')}}:</label>
                 {{$task->user->name}}
             </button>
             </li>

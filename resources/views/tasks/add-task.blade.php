@@ -2,22 +2,22 @@
 @section('content')
 <form method="POST" action="{{route('tasks.store')}}">
     @csrf
-    <label>Add Task</label>
+    <label>{{__('task.add')}}</label>
     <input type="text" name="descrizione" placeholder="description">
     @isset($users)
-    <label>Assign to:</label>
+    <label>{{__('task.assign')}}:</label>
     <select name="assigned">
         @role('admin')
         @else
-        <option>Nobody</option selected>
+        <option>{{__('task.nobody')}}</option selected>
         @endrole
         @foreach ($users as $user)
         <option value="{{$user->id}}">{{$user->name}}</option>
         @endforeach
     </select>
     @else
-    <label>Assign to youself: </label><input type="checkbox" name="assigned">
+    <label>{{__('task.assigny')}}: </label><input type="checkbox" name="assigned">
     @endisset
-    <button type="submit">Submit</button>
+    <button type="submit">{{__('task.submit')}}</button>
 </form>
 @endsection

@@ -21,12 +21,22 @@ use  App\Http\Controllers\LanguageController;
 |
 */
 
- 
+Route::get('ping', function () {
+
+    $mailchimp = new MailchimpMarketing\ApiClient();
+
+    $mailchimp->setConfig([
+        'apiKey' => config('services.mailchimp.key'),
+        'server' => config('services.mailchimp.server'),
+    ]);
+    $response = $mailchimp->ping->get();
+    ddd($response);
+});
 Route::get('change', [LanguageController::class, 'change']);
 Route::middleware('guest')->group(function () {
     Route::get('/', fn () => view('auth.login'))->name('login');
     Route::get('/register', [UserController::class, 'create'])->name('register');
-    
+
     Route::post('login', [UserController::class, 'authenticate']);
     Route::post('/register', [UserController::class, 'store']);
 });
@@ -36,10 +46,10 @@ Route::middleware('auth')->group(function () {
     Route::get('logout', [UserController::class, 'logout']);
 });
 Route::middleware('role:teamleader')->group(function () {
-    Route::get('team/{team:id}/users', [UserController::class, 'indexTeam']);//aggiungere id del team e request se fa parte di quel team
+    Route::get('team/{team:id}/users', [UserController::class, 'indexTeam']); //aggiungere id del team e request se fa parte di quel team
     Route::get('/delete', [TaskController::class, 'delete']);
 });
-Route::middleware('role:admin')->group(function(){
+Route::middleware('role:admin')->group(function () {
     Route::get('/admin', [UserController::class, 'index']);
     Route::get('/admin/roles/{user:id}', [UserController::class, 'editRoles']);
     Route::put('/admin/roles/{user:id}', [UserController::class, 'updateRoles']);

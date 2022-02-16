@@ -2,15 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use HttpOz\Roles\Traits\HasRole;
 use HttpOz\Roles\Contracts\HasRole as HasRoleContract;
-use Illuminate\Support\Facades\DB;
-use function PHPUnit\Framework\returnValueMap;
+
 
 class User extends Authenticatable implements HasRoleContract
 {

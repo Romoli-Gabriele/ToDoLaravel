@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Mail\assignedTask;
+use Illuminate\Support\Facades\Mail;
 
 class Task extends Model
 {
@@ -27,6 +29,7 @@ class Task extends Model
         if(isset($assigned)){
             $assigned =User::find($assigned);
             $task->assigned()->associate($assigned);
+            Mail::to(User::find($assigned))->send(new assignedTask($task));
         }
         $task->team()->associate($team);
         $task->user()->associate($user)->save();

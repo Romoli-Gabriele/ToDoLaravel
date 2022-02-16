@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\Team;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Exception;
+use App\Mail\assignedTask;
 
 
 class TaskController extends Controller
@@ -131,6 +133,7 @@ class TaskController extends Controller
         }
         try {
             $task->assigned()->associate(User::findOrFail($assigned));
+            Mail::to(User::find($assigned))->send(new assignedTask($task));
         } catch (Exception $e) {
             $task->assigned()->dissociate();
         }

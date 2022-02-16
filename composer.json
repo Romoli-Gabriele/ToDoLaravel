@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "aws/aws-sdk-php": "^3.209",
         "doctrine/dbal": "^3.3",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -13,8 +14,12 @@
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "mailchimp/marketing": "^3.0",
         "spatie/laravel-translatable": "^5.2",
-        "symfony/mailer": "^6.0"
+        "symfony/http-client": "^6.0",
+        "symfony/mailer": "^6.0",
+        "symfony/mailgun-mailer": "^6.0",
+        "symfony/postmark-mailer": "^6.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

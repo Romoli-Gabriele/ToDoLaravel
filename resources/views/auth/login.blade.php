@@ -4,13 +4,13 @@
     @csrf
     <input type="email" name="email" placeholder="email" required>
     <input type="password" name="password" placeholder="password" required>
-    <button type="submit">Submit</button>
+    <button type="submit">{{__('task.submit')}}</button>
     <br>
     @error('email')
         <p class="text-red text-xs ">{{ $message }}</p> 
     @enderror
 </form>
 <br>
-<a href="/register">Not registered?</a>
+<a href="/register">{{__('user.not')}}</a>
 
 @endsection

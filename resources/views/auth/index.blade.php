@@ -7,29 +7,29 @@
 /team/{{auth()->user()->team->id}}/users
 @endif
 " method="GET">
-    <label>Only team leaders</label><input type="checkbox" name="teamleader"
+    <label>{{__('user.onlytm')}}</label><input type="checkbox" name="teamleader"
     @isset($_GET['teamleader'])
     checked
     @endisset
     >
-    <label>Users already assigned</label><input type="checkbox" name="onetask"
+    <label>{{__('user.assig')}}</label><input type="checkbox" name="onetask"
     @isset($_GET['onetask'])
     checked
     @endisset
     >
-    <label>Free users</label><input type="checkbox" name="zerotask"
+    <label>{{__('user.free')}}</label><input type="checkbox" name="zerotask"
     @isset($_GET['zerotask'])
     checked
     @endisset
     >
-    <label>Users without CF</label><input type="checkbox" name="noCF"
+    <label>{{__('user.without')}}</label><input type="checkbox" name="noCF"
     @isset($_GET['noCF'])
     checked
     @endisset
     >
     <br>
-    <input type="text" value="{{request('search')}}" name="search" placeholder="Find something" class="text-sm">
-    <button type="submit">Submit</button>
+    <input type="text" value="{{request('search')}}" name="search" placeholder="{{__('task.find')}}" class="text-sm">
+    <button type="submit">{{__('task.submit')}}</button>
 </form>
 
 <ul>
@@ -41,13 +41,13 @@
                 text-red
             @endif
             "
-            >Nome: </label>{{$user->name}}
+            >{{__('user.name')}}: </label>{{$user->name}}
             <label>Email: </label>{{$user->email}}
             @if(!$user->isAdmin())
             <label>Team: </label>{{$user->team->name}}
             @endif
             @role('admin')
-            <a href="/admin/roles/{{$user->id}}">Edit Roles</a>
+            <a href="/admin/roles/{{$user->id}}">{{__('user.edit')}}</a>
             @endrole
         </li>
     @endforeach

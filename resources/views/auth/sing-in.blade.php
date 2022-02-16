@@ -2,11 +2,11 @@
 @section('content')
 <form method="POST" action="/register">
     @csrf
-    <input type="text" name="name" placeholder="name" required>
+    <input type="text" name="name" placeholder="{{__('user.name')}}" required>
     @error('name')
         <p class="text-red text-xs ">{{ $message }}</p>
     @enderror
-    <input type="text" name="cognome" placeholder="surname" required>
+    <input type="text" name="cognome" placeholder="{{__('profile.surname')}}" required>
     @error('cognome')
         <p class="text-red text-xs ">{{ $message }}</p>
     @enderror
@@ -23,7 +23,7 @@
         <option value="{{$team->id}}">{{$team->name}}</option>
         @endforeach
     </select>
-    <button type="submit">Submit</button>
+    <button type="submit">{{__('task.submit')}}</button>
 </form>
 <br>
 

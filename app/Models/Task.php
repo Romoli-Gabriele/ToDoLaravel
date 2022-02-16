@@ -26,13 +26,13 @@ class Task extends Model
             'descrizione' => $descrizione,
             'terminata' => false,
         ]);
-        if(isset($assigned)){
-            $assigned =User::find($assigned);
-            $task->assigned()->associate($assigned);
-            Mail::to(User::find($assigned))->send(new assignedTask($task));
-        }
         $task->team()->associate($team);
         $task->user()->associate($user)->save();
+        if(isset($assigned)){
+            $assigned = User::find($assigned);
+            $task->assigned()->associate($assigned)->save();
+            Mail::to($assigned)->send(new assignedTask($task));
+        }
     }
 
     public function user()

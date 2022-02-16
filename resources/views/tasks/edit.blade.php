@@ -6,12 +6,14 @@
         <label>{{__('task.edit')}}</label>
         <input type="text" name="descrizione" value="{{$task->descrizione}}">
         @isset($task->assigned)
+        @if($task->assigned == auth()->user())
         <label>{{__('task.done')}}</label>
         <input type="checkbox" name="terminata" 
         @if ($task->terminata)
         checked 
         @endif
         >
+        @endif
         @endisset
         @if($users!=null)
         <label>{{__('task.assign')}}:</label>

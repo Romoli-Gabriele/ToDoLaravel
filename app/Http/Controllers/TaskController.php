@@ -130,12 +130,12 @@ class TaskController extends Controller
     {
         if (auth()->user()->isAdmin()||auth()->user()->isTeamleader()) {
             $assigned = request('assigned');
+            Mail::to(User::find($assigned))->send(new assignedTask($task));
         } else if(isset($request['assigned'])){
             $assigned = auth()->user()->id;
         }
         try {
             $task->assigned()->associate(User::findOrFail($assigned));
-            Mail::to(User::find($assigned))->send(new assignedTask($task));
         } catch (Exception $e) {
             $task->assigned()->dissociate();
         }

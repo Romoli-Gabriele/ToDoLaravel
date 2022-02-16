@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use Exception;
 use App\Mail\assignedTask;
+use App\Mail\doneTask;
+use \HttpOz\Roles\Models\Role;
 
 
 class TaskController extends Controller
@@ -139,6 +141,14 @@ class TaskController extends Controller
         }
         if (isset($request['terminata']) && isset($task->assigned)) {
             $task->terminata = true;
+            $leaderRole = Role::findBySlug('teamLeader');
+            $leaders = $leaderRole->users;
+            foreach($leaders as $leader){
+                if($task->team_id == $leader->team_id){
+                    var_dump($leader);
+                    Mail::to($leader)->send(new doneTask($task, $task->assigned));
+                }
+            }
         } else {
             $task->terminata = false;
         }

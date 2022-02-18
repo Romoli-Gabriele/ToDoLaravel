@@ -20,7 +20,7 @@ use  App\Http\Controllers\LanguageController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/*
 Route::get('ping', function () {
 
     $mailchimp = new MailchimpMarketing\ApiClient();
@@ -31,7 +31,7 @@ Route::get('ping', function () {
     ]);
     $response = $mailchimp->ping->get();
     ddd($response);
-});
+});*/
 Route::get('change', [LanguageController::class, 'change']);
 Route::middleware('guest')->group(function () {
     Route::get('/', fn () => view('auth.login'))->name('login');

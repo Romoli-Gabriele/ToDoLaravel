@@ -1,4 +1,10 @@
 @extends('layout')
+@section('search')
+<form method="GET" action="/tasks" class="d-flex">
+    <input class="form-control me-2" aria-label="Search" type="search" value="{{request('search')}}" name="search" placeholder="{{__('task.find')}}" class="text-sm">
+    <button class="btn btn-outline-success" type="submit">{{__('task.search')}}</button>
+</form>
+@endsection
 @section('content')  
 <nav>
     <a href="{{ route('tasks.create') }}">{{__('task.add')}}</a>
@@ -7,10 +13,6 @@
     @elseif(auth()->user()->isAdmin())
         <a href="/admin/delete">{{__('task.delete')}}</a>
     @endif
-    <form method="GET" action="/tasks">
-    <input type="text" value="{{request('search')}}" name="search" placeholder="{{__('task.find')}}" class="text-sm">
-    <button type="submit">{{__('task.search')}}</button>
-    </form>
 </nav>
     <ul>
         @foreach ($tasks as $task)

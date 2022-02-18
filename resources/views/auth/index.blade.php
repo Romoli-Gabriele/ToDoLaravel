@@ -1,36 +1,39 @@
 @extends('layout')
-@section('content')
+@section('search')
 <form action="
 @if(auth()->user()->isAdmin())
 /admin
 @else
 /team/{{auth()->user()->team->id}}/users
 @endif
-" method="GET">
-    <label>{{__('user.onlytm')}}</label><input type="checkbox" name="teamleader"
+" method="GET" class="d-flex">
+    <label class="link-light">{{__('user.onlytm')}}</label><input type="checkbox" name="teamleader"
     @isset($_GET['teamleader'])
     checked
     @endisset
     >
-    <label>{{__('user.assig')}}</label><input type="checkbox" name="onetask"
+    <label class="link-light">{{__('user.assig')}}</label><input type="checkbox" name="onetask"
     @isset($_GET['onetask'])
     checked
     @endisset
     >
-    <label>{{__('user.free')}}</label><input type="checkbox" name="zerotask"
+    <label class="link-light">{{__('user.free')}}</label><input type="checkbox" name="zerotask"
     @isset($_GET['zerotask'])
     checked
     @endisset
     >
-    <label>{{__('user.without')}}</label><input type="checkbox" name="noCF"
+    <label class="link-light">{{__('user.without')}}</label><input type="checkbox" name="noCF"
     @isset($_GET['noCF'])
     checked
     @endisset
     >
     <br>
-    <input type="text" value="{{request('search')}}" name="search" placeholder="{{__('task.find')}}" class="text-sm">
-    <button type="submit">{{__('task.submit')}}</button>
-</form>
+    <input  class="form-control me-2" type="search"  aria-label="Search" value="{{request('search')}}" name="search" placeholder="{{__('task.find')}}" class="text-sm">
+    <button class="btn btn-outline-success" type="submit">{{__('task.submit')}}</button>
+</form> 
+@endsection
+@section('content')
+
 
 <ul>
     @foreach ($users as $user)

@@ -6,6 +6,6 @@
         <br>
         {{$task->descrizione}}
         <br>
-        <label>Created by</label>{{$task->user->name}}
+        <label>Created by </label>{{$task->user->name}}
     </div>
 </body>

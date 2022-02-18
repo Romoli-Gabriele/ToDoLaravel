@@ -7,8 +7,8 @@
         <form method="POST" action="{{ route('tasks.destroy', ['task' => $task->id]) }}">
             @csrf
             @method('delete')
-            <li><button type="submit">
-                &#10004
+            <li>
+                <a href="{{route('tasks.edit', ['task' => $task->id]) }}">&#10004</a>
 
                 {{$task->descrizione}}
                 
@@ -16,6 +16,8 @@
                 <time>{{$task->created_at->diffForHumans()}}</time>
                 <label>{{__('task.by')}}:</label>
                 {{$task->user->name}}
+            <button type="submit">
+            {{__('task.delete')}}
             </button>
             </li>
         @endforeach

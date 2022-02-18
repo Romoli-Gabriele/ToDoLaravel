@@ -139,7 +139,7 @@ class TaskController extends Controller
         } catch (Exception $e) {
             $task->assigned()->dissociate();
         }
-        if (isset($request['terminata']) && isset($task->assigned) && auth()->user() == $task->assigned()) {
+        if (isset($request['terminata']) && isset($task->assigned) && auth()->user() == $task->assigned) {
             $task->terminata = true;
             $leaderRole = Role::findBySlug('teamLeader');
             $leaders = $leaderRole->users;
